@@ -1,0 +1,108 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { Permissions, MessageAttachment } = require('discord.js');
+const { createCanvas, loadImage } = require('canvas');
+const QRCode = require('qrcode');
+const mysql = require('mysql2/promise');
+require('dotenv').config();
+
+const CODE_LENGTH = 6;
+const CODE_EXPIRY_MONTHS = 2;
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName('generatevoucher')
+    .setDescription('Generate a voucher code.')
+    .setDefaultPermission(false),
+
+  async execute(interaction) {
+    try {
+      // Check if the user has admin permissions
+      if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+        return await interaction.reply({ content: 'You need admin permissions to use this command.', ephemeral: true });
+      }
+
+      // Connect to the MySQL server
+      const connection = await mysql.createConnection({
+        host: process.env.MYSQL_HOST,
+        user: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PASSWORD,
+        database: process.env.MYSQL_DATABASE,
+        ssl: {
+          ca: process.env.MYSQL_SSL_CA, // Provide the SSL certificate content in .env
+        },
+      });
+
+      console.log('Connected to MySQL server.');
+
+      // Generate a random alphanumeric code
+      let voucherCode = generateRandomCode(CODE_LENGTH);
+
+      // Check if the code already exists in the table
+      let isCodeExists = true;
+      while (isCodeExists) {
+        const [rows] = await connection.execute('SELECT * FROM voucher WHERE code = ?', [voucherCode]);
+        if (rows.length === 0) {
+          isCodeExists = false;
+        } else {
+          voucherCode = generateRandomCode(CODE_LENGTH);
+        }
+      }
+
+      // Calculate the expiry date
+      const expiryDate = new Date();
+      expiryDate.setMonth(expiryDate.getMonth() + CODE_EXPIRY_MONTHS);
+
+      // Insert the voucher details into the table
+      await connection.execute('INSERT INTO voucher (code, expiry_date) VALUES (?, ?)', [voucherCode, expiryDate]);
+
+      // Generate QR code
+      const qrCodeCanvas = createCanvas(500, 500);
+      await QRCode.toCanvas(qrCodeCanvas, voucherCode, { width: 500 });
+
+      // Create the main canvas
+      const canvas = createCanvas(1502, 1002);
+      const ctx = canvas.getContext('2d');
+
+      // Load the background image
+      const background = await loadImage('https://media.discordapp.net/attachments/916149747180511294/1079635234766725260/offer.png');
+      ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+      // Set the font properties
+      ctx.font = '65px bold Arial';
+      ctx.fillStyle = 'white';
+
+      // Write the voucher code
+      ctx.fillText(voucherCode, 492, 936);
+
+      // Draw the QR code
+      ctx.drawImage(qrCodeCanvas, 136, 255, 500, 500);
+
+      // Write the expiry date
+      ctx.fillText(`Expiry Date: ${expiryDate.toISOString().slice(0, 10)}`, 1320, 763);
+
+      // Save the canvas as a Discord attachment
+      const attachment = new MessageAttachment(canvas.toBuffer(), 'voucher.png');
+
+      // Success message with the voucher code and QR code
+      const successMessage = `Voucher generated successfully! Here's your voucher code: ${voucherCode}`;
+
+      await interaction.reply({ content: successMessage, files: [attachment] });
+
+      // Close the MySQL connection
+      await connection.end();
+
+    } catch (error) {
+      console.error('Error executing /generatevoucher command:', error);
+      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
+    }
+  },
+};
+
+function generateRandomCode(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let code = '';
+  for (let i = 0; i < length; i++) {
+    code += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return code;
+}
