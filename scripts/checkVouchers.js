@@ -6,14 +6,7 @@ async function checkVouchersValidity() {
   try {
     // Connect to the MySQL server
     const connection = await mysql.createConnection({
-      host: process.env.MYSQL_HOST,
-      user: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-      database: process.env.MYSQL_DATABASE,
-      ssl: {
-        ca: fs.readFileSync('path/to/cert.pem'),
-        key: fs.readFileSync('path/to/key.pem'),
-      },
+      process.env.DB_URL
     });
 
     console.log('Connected to MySQL server.');
