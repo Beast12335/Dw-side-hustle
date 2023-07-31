@@ -23,14 +23,8 @@ module.exports = {
 
       // Connect to the MySQL server
       const connection = await mysql.createConnection({
-        host: process.env.MYSQL_HOST,
-        user: process.env.MYSQL_USER,
-        password: process.env.MYSQL_PASSWORD,
-        database: process.env.MYSQL_DATABASE,
-        ssl: {
-          ca: process.env.MYSQL_SSL_CA, // Provide the SSL certificate content in .env
-        },
-      });
+        process.env.DB_URL
+                                                      });
 
       console.log('Connected to MySQL server.');
 
