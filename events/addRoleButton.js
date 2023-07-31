@@ -11,7 +11,7 @@ module.exports = {
       // You can use MessageCollector to wait for user input for 10 seconds
 
       // Example:
-      await interaction.reply({ content: 'Please provide the role ID you want to add to the channel.', ephemeral: true });
+      await interaction.reply({ content: 'Please provide the role ID you want to add to the channel.', ephemeral: false });
       const collector = new MessageCollector(interaction.channel, { time: 10000 }); // Collect messages for 10 seconds
       collector.on('collect', async (message) => {
         // Add the role with the provided ID to the channel
