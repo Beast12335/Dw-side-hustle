@@ -1,0 +1,17 @@
+{
+  "name": "beast",
+  "version": "1.0.0",
+  "description": "A noob with advanced functionality using code ",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "discord-api-types": "0.24.0",
+    "discord.js": "14.2.0",
+    "dotenv": "10.0.0",
+    "mysql2": "2.3.0",
+    "canvas": "2.8.0",
+    "axios": "0.24.0"
+  }
+}
