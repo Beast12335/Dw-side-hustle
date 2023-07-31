@@ -1,4 +1,4 @@
-const { Client, MessageEmbed } = require('discord.js');
+const { Client, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 module.exports = {
   name: 'interactionCreate',
@@ -20,19 +20,42 @@ module.exports = {
       // Send an ephemeral message indicating the ticket creation
       await interaction.reply({ content: 'Ticket has been created!', ephemeral: true });
 
-      // Send the welcome embed in the ticket channel
+      // Create the action row for buttons
+      const actionRow = new MessageActionRow()
+        .addComponents(
+          new MessageButton()
+            .setCustomId('claim_ticket')
+            .setLabel('Claim')
+            .setStyle('PRIMARY'),
+          new MessageButton()
+            .setCustomId('view_users')
+            .setLabel('Users')
+            .setStyle('PRIMARY'),
+          new MessageButton()
+            .setCustomId('assign_role')
+            .setLabel('Role')
+            .setStyle('PRIMARY'),
+          new MessageButton()
+            .setCustomId('close_ticket')
+            .setLabel('Close')
+            .setStyle('DANGER'),
+          new MessageButton()
+            .setCustomId('delete_ticket')
+            .setLabel('Delete')
+            .setStyle('DANGER'),
+          new MessageButton()
+            .setCustomId('get_transcript')
+            .setLabel('Transcript')
+            .setStyle('SECONDARY')
+        );
+
+      // Send the welcome embed with buttons in the ticket channel
       const welcomeEmbed = new MessageEmbed()
         .setTitle(`Welcome to your ${selectedType} Ticket!`)
         .setDescription('Please be patient and avoid pinging. Our support team will assist you shortly.')
-        .setColor('#00ff00')
-        .addField('Claim', 'Claim this ticket', true)
-        .addField('Users', 'View users in this ticket', true)
-        .addField('Role', 'Assign a role to this ticket', true)
-        .addField('Close', 'Close this ticket', true)
-        .addField('Delete', 'Delete this ticket', true)
-        .addField('Transcript', 'Get the transcript of this ticket', true);
+        .setColor('#00ff00');
 
-      await ticketChannel.send({ embeds: [welcomeEmbed] });
+      await ticketChannel.send({ embeds: [welcomeEmbed], components: [actionRow] });
 
     } catch (error) {
       console.error('Error handling select menu interaction:', error);
