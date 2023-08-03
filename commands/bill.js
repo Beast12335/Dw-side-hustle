@@ -47,10 +47,10 @@ module.exports = {
         .setName('currency')
         .setDescription('Choose the currency.')
         .setRequired(true)
-        .addChoice('Dollar', 'Dollar')
-        .addChoice('Euro', 'Euro')
-        .addChoice('INR', 'INR')
-        .addChoice('MYR', 'MYR')
+        .addChoices({name:'Dollar', value:'Dollar'},
+                   {name:'Euro', value:'Euro'},
+                   {name:'INR', value:'INR'},
+                   {name:'MYR', valye:'MYR'})
     ),
 
   async execute(interaction) {
