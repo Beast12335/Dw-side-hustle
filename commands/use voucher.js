@@ -19,9 +19,9 @@ module.exports = {
       const voucherCode = interaction.options.getString('code');
 
       // Connect to the MySQL server
-      const connection = await mysql.createConnection({
+      const connection = await mysql.createConnection(
         process.env.DB_URL
-      });
+      );
 
       console.log('Connected to MySQL server.');
 
