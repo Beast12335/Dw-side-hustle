@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageButton, MessageCollector } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, MessageCollector } = require('discord.js');
 
 module.exports = {
   name: 'interactionCreate',
