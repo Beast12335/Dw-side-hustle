@@ -43,7 +43,7 @@ module.exports = {
       const user = interaction.options.getString('user');
       const paypalLink = paypalLinks[user];
 
-      const response = `As per our company policy, payment has to be done 1st before we can deliver the product.\n\nItems ordered: ${order}\n\nPrice: ${cost}\n\nPlease send the payment to:\n[PP](${paypalLink}) or Pt: ${paytmNumber}\n\nDrop us a screenshot after sending, thanks.\n\nRegards,\nDesign Wonderland Management`;
+      const response = `As per our company policy, payment has to be done 1st before we can deliver the product.\n\nItems ordered: ${order}\n\nPrice: ${cost}\n\nPlease send the payment to:\n[PayPal](${paypalLink}) or Paytm: ${paytmNumber}\n\nDrop us a screenshot after sending, thanks.\n\nRegards,\nDesign Wonderland Management`;
 
       await interaction.reply(response);
     } catch (error) {
