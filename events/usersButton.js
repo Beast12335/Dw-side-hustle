@@ -17,8 +17,8 @@ module.exports = {
         description: 'Choose an option to manage users:',
       };
 
-      const addUsersButton = { customId: 'add_users', label: 'Add Users', style: 'PRIMARY' };
-      const removeUsersButton = { customId: 'remove_users', label: 'Remove Users', style: 'DANGER' };
+      const addUsersButton = { customId: 'add_users', label: 'Add Users', style: 'ButtonStyle.Secondary' };
+      const removeUsersButton = { customId: 'remove_users', label: 'Remove Users', style: 'ButtonStyle.Danger' };
 
       await interaction.reply({ embeds: [userOptionsEmbed], components: [{ type: 'ACTION_ROW', components: [addUsersButton, removeUsersButton] }] });
 
