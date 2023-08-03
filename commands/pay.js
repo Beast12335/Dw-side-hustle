@@ -30,10 +30,10 @@ module.exports = {
         .setName('user')
         .setDescription('Choose the user for payment.')
         .setRequired(true)
-        .addChoice('Tanki', 'Tanki')
-        .addChoice('Prithvi', 'Prithvi')
-        .addChoice('Icy', 'Icy')
-        .addChoice('Sanchit', 'Sanchit')
+        .addChoices({name:'Tanki', value:'Tanki'},
+                    {name:'Prithvi', value:'Prithvi'},
+                    {name:'Icy', value:'Icy'},
+                    {name:'Sanchit', value:'Sanchit'})
     ),
 
   async execute(interaction) {
