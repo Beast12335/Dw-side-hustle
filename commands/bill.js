@@ -50,7 +50,7 @@ module.exports = {
         .addChoices({name:'Dollar', value:'Dollar'},
                    {name:'Euro', value:'Euro'},
                    {name:'INR', value:'INR'},
-                   {name:'MYR', valye:'MYR'})
+                   {name:'MYR', value:'MYR'})
     ),
 
   async execute(interaction) {
