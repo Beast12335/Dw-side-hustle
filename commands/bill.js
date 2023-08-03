@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions, MessageAttachment, MessageActionRow, MessageButton } = require('discord.js');
+const { PermissionsBitField, MessageAttachment, MessageActionRow, MessageButton } = require('discord.js');
 
 const currencySymbols = {
   Dollar: '$',
@@ -56,7 +56,7 @@ module.exports = {
   async execute(interaction) {
     try {
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.reply({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
