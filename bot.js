@@ -5,7 +5,7 @@ const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
 require('dotenv').config();
 
-const client = new Client({ intents: [GatewayIntentBitsGUILDS] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.commands = new Collection();
 
 const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
