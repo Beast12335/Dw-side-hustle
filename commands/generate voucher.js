@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions, MessageAttachment } = require('discord.js');
+const { PermissionsBitField, MessageAttachment } = require('discord.js');
 const { createCanvas, loadImage } = require('canvas');
 const QRCode = require('qrcode');
 const mysql = require('mysql2/promise');
@@ -18,7 +18,7 @@ module.exports = {
   async execute(interaction) {
     try {
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.reply({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
