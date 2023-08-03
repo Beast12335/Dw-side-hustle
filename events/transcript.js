@@ -1,4 +1,4 @@
-const { MessageAttachment } = require('discord.js');
+const { AttachmentBuilder } = require('discord.js');
 const fs = require('fs');
 
 module.exports = async (channel) => {
@@ -12,7 +12,7 @@ module.exports = async (channel) => {
     fs.writeFileSync(fileName, messageData.join('\n'));
 
     // Send the transcript file as an attachment in the channel
-    const transcriptAttachment = new MessageAttachment(fileName);
+    const transcriptAttachment = new AttachmentBuilder(fileName);
     await channel.send({ files: [transcriptAttachment] });
 
     // Delete the transcript file after sending
