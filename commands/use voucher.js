@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
@@ -41,7 +41,7 @@ module.exports = {
       console.log('MySQL connection closed.');
 
       // Success message
-      const successEmbed = new MessageEmbed()
+      const successEmbed = new EmbedBuilder()
         .setTitle('Voucher Used Successfully')
         .setDescription(`The voucher with code "${voucherCode}" has been successfully marked as used.`)
         .setColor('#00ff00');
