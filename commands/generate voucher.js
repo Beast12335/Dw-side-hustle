@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField, MessageAttachment } = require('discord.js');
+const { PermissionsBitField, AttachmentBuilder } = require('discord.js');
 const { createCanvas, loadImage } = require('canvas');
 const QRCode = require('qrcode');
 const mysql = require('mysql2/promise');
@@ -74,7 +74,7 @@ module.exports = {
       ctx.fillText(`Expiry Date: ${expiryDate.toISOString().slice(0, 10)}`, 1320, 763);
 
       // Save the canvas as a Discord attachment
-      const attachment = new MessageAttachment(canvas.toBuffer(), 'voucher.png');
+      const attachment = new AttachmentBuilder(canvas.toBuffer(), 'voucher.png');
 
       // Success message with the voucher code and QR code
       const successMessage = `Voucher generated successfully! Here's your voucher code: ${voucherCode}`;
