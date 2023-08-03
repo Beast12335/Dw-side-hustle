@@ -66,6 +66,8 @@ client.once('ready', () => {
   registerCommands();
   runCheckVouchersScript();
 });
+// Increase the maximum listener limit for EventEmitter
+require('events').EventEmitter.defaultMaxListeners = 15; // Adjust the value as needed
 
 // Event handler for slash command interactions
 client.on('interactionCreate', async interaction => {
