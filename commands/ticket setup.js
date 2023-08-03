@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField, MessageEmbed, MessageActionRow, MessageSelectMenu } = require('discord.js');
+const { PermissionsBitField, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -37,13 +37,13 @@ module.exports = {
       const types = interaction.options.getString('types').split(',');
 
       // Create the embed for ticket setup
-      const embed = new MessageEmbed()
+      const embed = new EmbedBuilder()
         .setTitle('Ticket Setup')
         .setDescription(message)
         .setColor('#0099ff');
 
       // Create a select menu with options from the types array
-      const selectMenu = new MessageSelectMenu()
+      const selectMenu = new StringSelectMenuBuilder()
         .setCustomId('ticket_type')
         .setPlaceholder('Select a ticket type');
 
@@ -55,7 +55,7 @@ module.exports = {
       }
 
       // Create an action row to hold the select menu
-      const actionRow = new MessageActionRow()
+      const actionRow = new ActionRowBuilder()
         .addComponents(selectMenu);
 
       // Send the embed with the select menu to the specified channel
