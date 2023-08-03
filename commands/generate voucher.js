@@ -4,6 +4,7 @@ const { createCanvas, loadImage } = require('canvas');
 const QRCode = require('qrcode');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
+const db = process.env.DB_URL
 
 const CODE_LENGTH = 6;
 const CODE_EXPIRY_MONTHS = 2;
@@ -23,7 +24,7 @@ module.exports = {
 
       // Connect to the MySQL server
       const connection = await mysql.createConnection({
-        process.env.DB_URL
+        db
                                                       });
 
       console.log('Connected to MySQL server.');
