@@ -90,7 +90,7 @@ for (const file of eventFiles) {
   if (eventHandler.name === 'interactionCreate') {
     client.on('interactionCreate', eventHandler.execute);
   } else {
-    client.on(eventHandler.name, eventHandler.execute);
+    client.on(eventHandler.name, (...args) => eventHandler.execute(...args));
   }
 }
 
