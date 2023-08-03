@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions, MessageEmbed } = require('discord.js');
+const { Permissions, EmbedBuilder } = require('discord.js');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
@@ -50,7 +50,7 @@ module.exports = {
 };
 
 function createVouchersEmbed(title, vouchers) {
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setTitle(title)
     .setColor('#0099ff');
 
