@@ -1,11 +1,11 @@
 const { Canvas } = require('canvas');
-const { Client, Intents, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
 require('dotenv').config();
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [GatewayIntentBitsGUILDS] });
 client.commands = new Collection();
 
 const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
