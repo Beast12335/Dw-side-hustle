@@ -1,4 +1,4 @@
-const transcript = require('../transcript');
+const transcript = require('../transcript.js');
 
 module.exports = {
   name: 'interactionCreate',
