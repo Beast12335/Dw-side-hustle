@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder } = require('discord.js');
 
 module.exports = {
   name: 'interactionCreate',
@@ -18,7 +18,7 @@ module.exports = {
         description: 'Confirm you wish to delete the ticket.',
       };
 
-      const confirmButton = { customId: 'confirm_delete', label: 'Confirm', style: 'DANGER' };
+      const confirmButton = { customId: 'confirm_delete', label: 'Confirm', style: 'ButtonStyle.Danger' };
 
       await interaction.reply({ embeds: [confirmEmbed], components: [{ type: 'ACTION_ROW', components: [confirmButton] }] });
 
