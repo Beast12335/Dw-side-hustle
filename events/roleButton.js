@@ -17,8 +17,8 @@ module.exports = {
         description: 'Choose an option to manage roles:',
       };
 
-      const addRolesButton = { customId: 'add_roles', label: 'Add Roles', style: 'PRIMARY' };
-      const removeRolesButton = { customId: 'remove_roles', label: 'Remove Roles', style: 'DANGER' };
+      const addRolesButton = { customId: 'add_roles', label: 'Add Roles', style: 'ButtonStyle.Secondary' };
+      const removeRolesButton = { customId: 'remove_roles', label: 'Remove Roles', style: 'ButtonStyle.Danger' };
 
       await interaction.reply({ embeds: [roleOptionsEmbed], components: [{ type: 'ACTION_ROW', components: [addRolesButton, removeRolesButton] }] });
 
