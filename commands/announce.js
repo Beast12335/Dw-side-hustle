@@ -17,8 +17,8 @@ module.exports = {
         .setName('embed')
         .setDescription('Choose whether to send the message as an embed or not.')
         .setRequired(false)
-        .addChoice('Yes', 'yes')
-        .addChoice('No', 'no')
+        .addChoices({'Yes', 'yes'},
+                    {'No', 'no'})
     ),
 
   async execute(interaction) {
