@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField, MessageEmbed } = require('discord.js');
+const { PermissionsBitField, EmbedBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -33,7 +33,7 @@ module.exports = {
 
       if (sendAsEmbed === 'yes') {
         // Send the message as an embed
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
           .setDescription(messageContent)
           .setColor('#0099ff');
 
