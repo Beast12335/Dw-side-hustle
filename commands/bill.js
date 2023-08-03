@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField, MessageAttachment, MessageActionRow, MessageButton } = require('discord.js');
+const { PermissionsBitField, AttachmentBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 
 const currencySymbols = {
   Dollar: '$',
@@ -107,16 +107,16 @@ module.exports = {
         }
       }
 
-      const attachment = new MessageAttachment(canvas.toBuffer(), 'bill.png');
+      const attachment = new AttachmentBuilder(canvas.toBuffer(), 'bill.png');
 
       const replyEmbed = {
         files: [attachment],
         components: [
-          new MessageActionRow().addComponents(
-            new MessageButton()
+          new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
               .setURL(`attachment://bill.png`)
               .setLabel('View Bill')
-              .setStyle('LINK')
+              .setStyle('ButtonStyle.Link')
           )
         ]
       };
