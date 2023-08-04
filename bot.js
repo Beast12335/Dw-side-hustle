@@ -76,7 +76,7 @@ require('events').EventEmitter.defaultMaxListeners = 15; // Adjust the value as 
 
 // Event handler for interactions
 client.on('interactionCreate', async (interaction) => {
-  if (interaction.isChatInput()) {
+  if (interaction.isChatInputCommand()) {
     const commandName = interaction.commandName;
     const command = client.commands.get(commandName);
 
