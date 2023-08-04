@@ -6,15 +6,12 @@ module.exports = {
     .setDescription('Replies with pong.'),
 
   async execute(interaction) {
-    /*await interaction.deferReply()
     try {
-      *//*await interaction.deferReply()
-      await wait(5000)
-      await interaction.followUp('pong');*/
-      await interaction.reply('pong');
-    /*} catch (error) {
+      await interaction.deferReply()
+      await interaction.followUp(`pong: \n ${client.ws.ping}`);
+    } catch (error) {
       console.error('Error replying with pong:', error);
-      await interaction.followUp({ content: 'An error occurred while executing this command.', ephemeral: true });
-    }*/
+      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
+    }
   },
 };
