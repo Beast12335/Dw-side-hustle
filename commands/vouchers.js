@@ -10,7 +10,7 @@ module.exports = {
     .setDefaultPermission(false),
 
   async execute(interaction) {
-    try {
+    
       await interaction.deferReply()
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
@@ -42,11 +42,6 @@ module.exports = {
       // Close the MySQL connection
       await connection.end();
       console.log('MySQL connection closed.');
-
-    } catch (error) {
-      console.error('Error executing /vouchers command:', error);
-      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
-    }
   },
 };
 
