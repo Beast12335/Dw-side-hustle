@@ -23,9 +23,10 @@ module.exports = {
 
   async execute(interaction) {
     try {
+      await interaction.deferReply()
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
-        return await interaction.reply({ content: 'You need admin permissions to use this command.', ephemeral: true });
+        return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
       const messageContent = interaction.options.getString('message');
@@ -37,10 +38,10 @@ module.exports = {
           .setDescription(messageContent)
           .setColor('#0099ff');
 
-        await interaction.reply({ embeds: [embed] });
+        await interaction.followUp({ embeds: [embed] });
       } else {
         // Send the message as simple text
-        await interaction.reply(messageContent);
+        await interaction.followUp(messageContent);
       }
 
     } catch (error) {
