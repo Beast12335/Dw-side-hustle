@@ -3,7 +3,7 @@ const { Client, EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('disco
 module.exports = {
   name: 'interactionCreate',
   async execute(interaction) {
-    if (!interaction.isSelectMenu()) return;
+    if (!interaction.isStringSelectMenu()) return;
 
     try {
       // Get the selected value from the select menu
