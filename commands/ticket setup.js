@@ -26,7 +26,7 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    try {
+    
       await interaction.deferReply()
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
@@ -63,10 +63,5 @@ module.exports = {
       await channel.send({ embeds: [embed], components: [actionRow] });
 
       await interaction.followUp({ content: 'Ticket system has been set up successfully!', ephemeral: true });
-
-    } catch (error) {
-      console.error('Error executing /ticketsetup command:', error);
-      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
-    }
   },
 };
