@@ -7,7 +7,8 @@ module.exports = {
 
   async execute(interaction) {
     try {
-      await interaction.reply('pong');
+      await interaction.deferReply()
+      await interaction.followUp(`pong: \n ${client.ws.ping}`);
     } catch (error) {
       console.error('Error replying with pong:', error);
       await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
