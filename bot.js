@@ -86,10 +86,10 @@ client.on('interactionCreate', async (interaction) => {
       await command.execute(interaction);
     } catch (error) {
       console.error('Error executing command:', error);
-      await interaction.reply({
+      /*await interaction.reply({
         content: 'An error occurred while executing this command.',
         ephemeral: true,
-      });
+      });*/
     }
   }
 });
