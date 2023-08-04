@@ -17,9 +17,10 @@ module.exports = {
 
   async execute(interaction) {
     try {
+      await interaction.deferReply()
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
-        return await interaction.reply({ content: 'You need admin permissions to use this command.', ephemeral: true });
+        return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
       // Connect to the MySQL server
@@ -79,7 +80,7 @@ module.exports = {
       // Success message with the voucher code and QR code
       const successMessage = `Voucher generated successfully! Here's your voucher code: ${voucherCode}`;
 
-      await interaction.reply({ content: successMessage, files: [attachment] });
+      await interaction.followUp({ content: successMessage, files: [attachment] });
 
       // Close the MySQL connection
       await connection.end();
