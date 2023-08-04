@@ -37,7 +37,6 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    try {
       await interaction.deferReply()
       const order = interaction.options.getString('order');
       const cost = interaction.options.getString('cost');
@@ -47,9 +46,5 @@ module.exports = {
       const response = `As per our company policy, payment has to be done 1st before we can deliver the product.\n\nItems ordered: ${order}\n\nPrice: ${cost}\n\nPlease send the payment to:\n[PayPal](${paypalLink}) or Paytm: ${paytmNumber}\n\nDrop us a screenshot after sending, thanks.\n\nRegards,\nDesign Wonderland Management`;
 
       await interaction.followUp(response);
-    } catch (error) {
-      console.error('Error executing /pay command:', error);
-      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
-    }
   },
 };
