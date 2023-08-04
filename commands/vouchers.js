@@ -11,9 +11,10 @@ module.exports = {
 
   async execute(interaction) {
     try {
+      await interaction.deferReply()
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
-        return await interaction.reply({ content: 'You need admin permissions to use this command.', ephemeral: true });
+        return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
       // Connect to the MySQL server
@@ -36,7 +37,7 @@ module.exports = {
       const usedEmbed = createVouchersEmbed('Used Vouchers', usedVouchers);
       const expiredEmbed = createVouchersEmbed('Expired Vouchers', expiredVouchers);
 
-      await interaction.reply({ embeds: [activeEmbed, usedEmbed, expiredEmbed] });
+      await interaction.followUp({ embeds: [activeEmbed, usedEmbed, expiredEmbed] });
 
       // Close the MySQL connection
       await connection.end();
