@@ -74,34 +74,34 @@ client.once('ready', () => {
 // Increase the maximum listener limit for EventEmitter
 require('events').EventEmitter.defaultMaxListeners = 15; // Adjust the value as needed
 
+// Event handler for interactions
+client.on('interactionCreate', async (interaction) => {
+  if (interaction.isChatInput()) {
+    const commandName = interaction.commandName;
+    const command = client.commands.get(commandName);
+
+    if (!command) return;
+
+    try {
+      await command.execute(interaction);
+    } catch (error) {
+      console.error('Error executing command:', error);
+      await interaction.reply({
+        content: 'An error occurred while executing this command.',
+        ephemeral: true,
+      });
+    }
+  }
+});
+
+// Event handlers for other events in the 'events' folder
 const eventFiles = fs
   .readdirSync('./events')
   .filter((file) => file.endsWith('.js'));
+
 for (const file of eventFiles) {
   const eventHandler = require(`./events/${file}`);
-  if (eventHandler.name === 'interactionCreate') {
-    if (interaction.isChatInputCommand()) {
-      const commandName = interaction.commandName;
-      const command = client.commands.get(commandName);
-
-      if (!command) return;
-
-      try {
-        await command.execute(interaction);
-      } catch (error) {
-        console.error('Error executing command:', error);
-        await interaction.reply({
-          content: 'An error occurred while executing this command.',
-          ephemeral: true,
-        });
-      }
-    } else {
-      client.on('interactionCreate', eventHandler.execute);
-    }
-  } else {
-    client.on(eventHandler.name, (...args) => eventHandler.execute(...args));
-  }
+  client.on(eventHandler.name, (...args) => eventHandler.execute(...args));
 }
-
 // Log in the bot
 client.login(BOT_TOKEN);
