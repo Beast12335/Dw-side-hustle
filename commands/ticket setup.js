@@ -27,9 +27,10 @@ module.exports = {
 
   async execute(interaction) {
     try {
+      await interaction.deferReply()
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
-        return await interaction.reply({ content: 'You need admin permissions to use this command.', ephemeral: true });
+        return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
       const channel = interaction.options.getChannel('channel');
@@ -61,7 +62,7 @@ module.exports = {
       // Send the embed with the select menu to the specified channel
       await channel.send({ embeds: [embed], components: [actionRow] });
 
-      await interaction.reply({ content: 'Ticket system has been set up successfully!', ephemeral: true });
+      await interaction.followUp({ content: 'Ticket system has been set up successfully!', ephemeral: true });
 
     } catch (error) {
       console.error('Error executing /ticketsetup command:', error);
