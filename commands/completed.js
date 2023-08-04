@@ -15,9 +15,10 @@ module.exports = {
 
   async execute(interaction) {
     try {
+      await interaction.deferReply()
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
-        return await interaction.reply({ content: 'You need admin permissions to use this command.', ephemeral: true });
+        return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
       const category = interaction.options.getString('category');
@@ -29,13 +30,13 @@ module.exports = {
       const categoryObj = interaction.guild.channels.cache.find(ch => ch.type === 'GUILD_CATEGORY' && ch.name === category);
       
       if (!categoryObj) {
-        return await interaction.reply({ content: `Category "${category}" not found.`, ephemeral: true });
+        return await interaction.followUp({ content: `Category "${category}" not found.`, ephemeral: true });
       }
 
       // Move the channel to the specified category
       await channel.setParent(categoryObj.id);
 
-      await interaction.reply({ content: `Channel moved to the category "${category}" successfully.`, ephemeral: true });
+      await interaction.followUp({ content: `Channel moved to the category "${category}" successfully.`, ephemeral: true });
 
     } catch (error) {
       console.error('Error executing /completed command:', error);
