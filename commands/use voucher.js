@@ -15,7 +15,7 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    try {
+    
       await interaction.deferReply()
       const voucherCode = interaction.options.getString('code');
 
@@ -48,10 +48,5 @@ module.exports = {
         .setColor('#00ff00');
 
       await interaction.followUp({ embeds: [successEmbed] });
-
-    } catch (error) {
-      console.error('Error executing /usevoucher command:', error);
-      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
-    }
   },
 };
