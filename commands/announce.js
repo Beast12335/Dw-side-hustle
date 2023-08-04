@@ -22,7 +22,7 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    try {
+    
       await interaction.deferReply()
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
@@ -43,10 +43,5 @@ module.exports = {
         // Send the message as simple text
         await interaction.followUp(messageContent);
       }
-
-    } catch (error) {
-      console.error('Error executing /announce command:', error);
-      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
-    }
   },
 };
