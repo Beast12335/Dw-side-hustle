@@ -1,4 +1,4 @@
-const { SlashCommandBuilder,Client } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -7,9 +7,8 @@ module.exports = {
 
   async execute(interaction) {
     try {
-      const client = new Client();
       await interaction.deferReply()
-      await interaction.followUp(`pong: \n ${client.ws.ping}`);
+      await interaction.followUp('pong');
     } catch (error) {
       console.error('Error replying with pong:', error);
       await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
