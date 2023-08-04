@@ -9,6 +9,7 @@ module.exports = {
     /*await interaction.deferReply()
     try {
       */await interaction.deferReply()
+      await wait(5000)
       await interaction.followUp('pong');
     /*} catch (error) {
       console.error('Error replying with pong:', error);
