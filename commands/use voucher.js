@@ -16,6 +16,7 @@ module.exports = {
 
   async execute(interaction) {
     try {
+      await interaction.deferReply()
       const voucherCode = interaction.options.getString('code');
 
       // Connect to the MySQL server
@@ -29,7 +30,7 @@ module.exports = {
       const [rows] = await connection.execute('SELECT * FROM voucher WHERE code = ? AND status = ?', [voucherCode, 'active']);
       if (rows.length === 0) {
         // Voucher not found or not active
-        return await interaction.reply({ content: 'Invalid voucher code or the voucher has already been used/expired.', ephemeral: true });
+        return await interaction.followUp({ content: 'Invalid voucher code or the voucher has already been used/expired.', ephemeral: true });
       }
 
       // Mark the voucher as used
@@ -46,7 +47,7 @@ module.exports = {
         .setDescription(`The voucher with code "${voucherCode}" has been successfully marked as used.`)
         .setColor('#00ff00');
 
-      await interaction.reply({ embeds: [successEmbed] });
+      await interaction.followUp({ embeds: [successEmbed] });
 
     } catch (error) {
       console.error('Error executing /usevoucher command:', error);
