@@ -6,7 +6,7 @@ module.exports = {
 
     try {
       // Check if the user has the role with ID 38292739
-      const roleId = '38292739';
+      const roleId = '860538277710790706';
       if (!interaction.member.roles.cache.has(roleId)) {
         return await interaction.reply({ content: 'You do not have permission to manage roles in this ticket.', ephemeral: true });
       }
@@ -17,10 +17,10 @@ module.exports = {
         description: 'Choose an option to manage roles:',
       };
 
-      const addRolesButton = { customId: 'add_roles', label: 'Add Roles', style: 'ButtonStyle.Secondary' };
-      const removeRolesButton = { customId: 'remove_roles', label: 'Remove Roles', style: 'ButtonStyle.Danger' };
+      const addRolesButton = { customId: 'add_roles', label: 'Add Roles', style: 'Secondary' };
+      const removeRolesButton = { customId: 'remove_roles', label: 'Remove Roles', style: 'Danger' };
 
-      await interaction.reply({ embeds: [roleOptionsEmbed], components: [{ type: 'ACTION_ROW', components: [addRolesButton, removeRolesButton] }] });
+      await interaction.reply({ embeds: [roleOptionsEmbed], components: [{ type: 1, components: [addRolesButton, removeRolesButton] }] });
 
     } catch (error) {
       console.error('Error handling role button interaction:', error);
