@@ -27,7 +27,7 @@ module.exports = {
       await interaction.reply({ content: 'Ticket has been created!', ephemeral: true });
 
       // Create the action row for buttons
-      const actionRow = new ActionRowBuilder()
+      const actionRow = [{new ActionRowBuilder()
         .addComponents(
           new ButtonBuilder()
             .setCustomId('claim_ticket')
@@ -48,12 +48,16 @@ module.exports = {
           new ButtonBuilder()
             .setCustomId('delete_ticket')
             .setLabel('Delete')
-            .setStyle('Danger'),
+            .setStyle('Danger')
+          );},
+    {new ActionBuilder()
+     .addComponents(
           new ButtonBuilder()
             .setCustomId('get_transcript')
             .setLabel('Transcript')
             .setStyle('Secondary')
         );
+    }]
 
       // Send the welcome embed with buttons in the ticket channel
       const welcomeEmbed = new EmbedBuilder()
