@@ -6,7 +6,7 @@ module.exports = {
     .setDescription('Replies with pong.'),
 
   async execute(interaction) {
-    awsit interaction.deferReply()
+    await interaction.deferReply()
     try {
       //await interaction.deferReply()
       await interaction.followUp(`pong`);
