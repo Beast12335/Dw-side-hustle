@@ -1,4 +1,4 @@
-const { Client, EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
+const { Client, EmbedBuilder, ActionRowBuilder, ButtonBuilder, PermissionsBitField } = require('discord.js');
 
 module.exports = {
   name: 'interactionCreate',
@@ -15,8 +15,14 @@ module.exports = {
         type: 0,
         parent: categoryID,
         topic: `Ticket type: ${selectedType}\nCreated at: ${new Date().toLocaleString()}`,
+        permissionOverwrites:[{
+          id: interaction.guild.id,
+          deny: PermissionsBitField.Flags.ViewChannel},
+                              {
+                                id: interaction.user.id,
+                                allow: PermissionsBitField.ViewChannel}]
       });
-      await ticketChannel.permissionOverwrites.create(interaction.guild.id,{ViewChannel:false});
+      //await ticketChannel.permissionOverwrites.create(interaction.guild.id,{ViewChannel:false});
       // Send an ephemeral message indicating the ticket creation
       await interaction.reply({ content: 'Ticket has been created!', ephemeral: true });
 
