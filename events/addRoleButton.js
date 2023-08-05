@@ -1,4 +1,4 @@
-const { ActionRowBuilder, ButtonBuilder, MessageCollector } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, MessageCollector, PermissionsBitField } = require('discord.js');
 
 module.exports = {
   name: 'interactionCreate',
@@ -19,7 +19,7 @@ module.exports = {
         const roleToAdd = interaction.guild.roles.cache.get(roleIdToAdd);
         if (!roleToAdd) return; // Role not found
 
-        await interaction.channel.permissionOverwrites.create(roleToAdd, { VIEW_CHANNEL: true });
+        await interaction.channel.permissionOverwrites.create(roleToAdd,{PermissionsBitField.Flags.ViewChannel: true });
 
         // Send a success message
         await interaction.channel.send(`Role with ID ${roleIdToAdd} has been added to the channel.`);
