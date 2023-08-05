@@ -17,7 +17,7 @@ module.exports = {
         description: `Ticket has been claimed by ${interaction.user.username}.`,
       };
 
-      await interaction.reply({ embeds: [claimEmbed], ephemeral: true });
+      await interaction.reply({ embeds: [claimEmbed], ephemeral: false });
 
     } catch (error) {
       console.error('Error handling claim button interaction:', error);
