@@ -6,10 +6,10 @@ module.exports = {
     .setName('completed')
     .setDescription('Move the channel to the specified category.')
     .setDefaultPermission(false)
-    .addStringOption(option =>
+    .addIntegerOption(option =>
       option
         .setName('category')
-        .setDescription('Enter the category to move the channel to.')
+        .setDescription('Enter the category id to move the channel to.')
         .setRequired(true)
     ),
 
@@ -22,13 +22,13 @@ module.exports = {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
-      const category = interaction.options.getString('category');
+      const category = interaction.options.getInteger('category');
 
       // Get the channel from which the command is used
       const channel = interaction.channel;
       
       // Find the category in the guild by name
-      const categoryObj = interaction.guild.channels.cache.find(ch => ch.type === 'GUILD_CATEGORY' && ch.name === category);
+      const categoryObj = interaction.guild.channels.cache.find(ch => ch.type === 'GUILD_CATEGORY' && ch.id === category);
       
       if (!categoryObj) {
         return await interaction.followUp({ content: `Category "${category}" not found.`, ephemeral: true });
