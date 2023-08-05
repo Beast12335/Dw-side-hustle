@@ -6,7 +6,7 @@ module.exports = {
     .setName('completed')
     .setDescription('Move the channel to the specified category.')
     .setDefaultPermission(false)
-    .addIntegerOption(option =>
+    .addStringOption(option =>
       option
         .setName('category')
         .setDescription('Enter the category id to move the channel to.')
