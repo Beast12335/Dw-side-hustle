@@ -19,7 +19,7 @@ module.exports = {
         const roleToAdd = interaction.guild.roles.cache.get(roleIdToAdd);
         if (!roleToAdd) return; // Role not found
 
-        await interaction.channel.permissionOverwrites.create(roleToAdd,{PermissionsBitField.Flags.ViewChannel: true });
+        await interaction.channel.permissionOverwrites.create(roleToAdd,{ViewChannel: true });
 
         // Send a success message
         await interaction.channel.send(`Role with ID ${roleIdToAdd} has been added to the channel.`);
