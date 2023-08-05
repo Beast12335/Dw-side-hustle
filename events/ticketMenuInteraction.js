@@ -32,27 +32,27 @@ module.exports = {
           new ButtonBuilder()
             .setCustomId('claim_ticket')
             .setLabel('Claim')
-            .setStyle('ButtonStyle.Primary'),
+            .setStyle('Primary'),
           new ButtonBuilder()
             .setCustomId('view_users')
             .setLabel('Users')
-            .setStyle('ButtonStyle.Primary'),
+            .setStyle('Primary'),
           new ButtonBuilder()
             .setCustomId('assign_role')
             .setLabel('Role')
-            .setStyle('ButtonStyle.Primary'),
+            .setStyle('Primary'),
           new ButtonBuilder()
             .setCustomId('close_ticket')
             .setLabel('Close')
-            .setStyle('ButtonStyle.Danger'),
+            .setStyle('Danger'),
           new ButtonBuilder()
             .setCustomId('delete_ticket')
             .setLabel('Delete')
-            .setStyle('ButtonStyle.Danger'),
+            .setStyle('Danger'),
           new ButtonBuilder()
             .setCustomId('get_transcript')
             .setLabel('Transcript')
-            .setStyle('ButtonStyle.Secondary')
+            .setStyle('Secondary')
         );
 
       // Send the welcome embed with buttons in the ticket channel
