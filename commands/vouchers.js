@@ -60,7 +60,7 @@ function createVouchersEmbed(title, vouchers) {
     embed.setDescription('No vouchers found.');
   } else {
     for (const voucher of vouchers) {
-      embed.addField(`Voucher ID: ${voucher.id}`, `Status: ${voucher.status}\nCode: ${voucher.code}\nExpiry Date: ${voucher.expiry_date}`);
+      embed.addFields({name:`Voucher ID`,value:`: ${voucher.code}`}, {name:`Status`, value:`: ${voucher.valid}`},{name:`Expiry Date`, value:`: ${voucher.date}`});
     }
   }
 
