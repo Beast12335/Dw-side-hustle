@@ -19,7 +19,7 @@ module.exports = {
         const userToAdd = await interaction.guild.members.fetch(userIdToAdd);
         if (!userToAdd) return; // User not found
 
-        await interaction.channel.permissionOverwrites.create(userToAdd, { PermissionsBitField.Flags.ViewChannel: true });
+        await interaction.channel.permissionOverwrites.create(userToAdd, { ViewChannel: true });
 
         // Send a success message
         await interaction.channel.send(`User with ID ${userIdToAdd} has been added to the channel.`);
