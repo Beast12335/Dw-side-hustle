@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder,Guild } = require('@discordjs/builders');
 const { PermissionsBitField, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
 
 module.exports = {
@@ -38,11 +38,14 @@ module.exports = {
       const message = interaction.options.getString('message');
       const types = interaction.options.getString('types').split(',');
 
+
       // Create the embed for ticket setup
       const embed = new EmbedBuilder()
         .setTitle('Ticket Setup')
         .setDescription(message)
-        .setColor('#0099ff');
+        .setColor('#0099ff')
+        .setThumbnail('https://cdn.discordapp.com/icons/808758266792247297/3c7a14d0f10d9bd3be4921bf0e6be5ca.png')
+        .setFooter({text:'Design Wonderland',iconUrl:'https://cdn.discordapp.com/icons/808758266792247297/3c7a14d0f10d9bd3be4921bf0e6be5ca.png'});
 
       // Create a select menu with options from the types array
       const selectMenu = new StringSelectMenuBuilder()
