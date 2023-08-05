@@ -22,7 +22,7 @@ module.exports = {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
-      const category = interaction.options.getInteger('category');
+      const category = interaction.options.getString('category');
 
       // Get the channel from which the command is used
       const channel = interaction.channel;
