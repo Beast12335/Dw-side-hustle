@@ -63,7 +63,7 @@ module.exports = {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
-      const customer = interaction.options.getMember('customer');
+      const customer = interaction.options.getUser('customer');
       const order = interaction.options.getString('order');
       const price = interaction.options.getString('price');
       const discount = interaction.options.getString('discount');
@@ -88,7 +88,7 @@ module.exports = {
       ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
 
-      ctx.fillText(grandTotal, 225, 641);
+      ctx.fillText(`${currencySymbol} ${grandTotal}`, 225, 641);
       ctx.fillText(discount, 262, 518);
       ctx.fillText(`${currencySymbol} ${price}`, 232, 395);
 
