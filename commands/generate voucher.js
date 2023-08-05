@@ -73,7 +73,7 @@ module.exports = {
       ctx.drawImage(qrCodeCanvas, 130, 255, 500, 500);
       ctx.font = "bold 50px Arial"
       // Write the expiry date
-      ctx.fillText(`${expiryDate.toDateString().slice(4,new Date(expiryDate).toDateString().length)}`, 1170, 763);
+      ctx.fillText(`${expiryDate.toDateString().slice(4,new Date(expiryDate).toDateString().length)}`, 1150, 763);
 
       // Save the canvas as a Discord attachment
       const attachment = new AttachmentBuilder(canvas.toBuffer(), 'voucher.png');
