@@ -27,7 +27,7 @@ module.exports = {
       await interaction.reply({ content: 'Ticket has been created!', ephemeral: true });
 
       // Create the action row for buttons
-      const actionRow = [{new ActionRowBuilder()
+      const actionRow = new ActionRowBuilder()
         .addComponents(
           new ButtonBuilder()
             .setCustomId('claim_ticket')
@@ -49,15 +49,14 @@ module.exports = {
             .setCustomId('delete_ticket')
             .setLabel('Delete')
             .setStyle('Danger')
-          );},
-    {new ActionBuilder()
+          );
+    const action = new ActionBuilder()
      .addComponents(
           new ButtonBuilder()
             .setCustomId('get_transcript')
             .setLabel('Transcript')
             .setStyle('Secondary')
         );
-    }]
 
       // Send the welcome embed with buttons in the ticket channel
       const welcomeEmbed = new EmbedBuilder()
@@ -65,7 +64,7 @@ module.exports = {
         .setDescription('Please be patient and avoid pinging. Our support team will assist you shortly.')
         .setColor('#00ff00');
 
-      await ticketChannel.send({ embeds: [welcomeEmbed], components: [actionRow] });
+      await ticketChannel.send({ embeds: [welcomeEmbed], components: [actionRow,action] });
 
     } catch (error) {
       console.error('Error handling select menu interaction:', error);
