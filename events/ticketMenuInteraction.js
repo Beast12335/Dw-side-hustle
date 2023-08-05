@@ -11,12 +11,12 @@ module.exports = {
 
       // Create the ticket channel in the category with ID 294829283
       const categoryID = '860512303233236994';
-      const ticketChannel = await interaction.guild.channels.create(`ticket-${interaction.user.username}`, {
+      const ticketChannel = await interaction.guild.channels.create({name:`ticket-${interaction.user.username}`,
         type: 'GUILD_TEXT',
         parent: categoryID,
         topic: `Ticket type: ${selectedType}\nCreated at: ${new Date().toLocaleString()}`,
       });
-
+      await ticketChannel.permissionOverwrites.create(interaction.guild.id,{VIEW_CHANNEL:false});
       // Send an ephemeral message indicating the ticket creation
       await interaction.reply({ content: 'Ticket has been created!', ephemeral: true });
 
