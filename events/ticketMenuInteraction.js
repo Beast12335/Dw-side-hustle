@@ -12,7 +12,7 @@ module.exports = {
       // Create the ticket channel in the category with ID 294829283
       const categoryID = '860512303233236994';
       const ticketChannel = await interaction.guild.channels.create({name:`ticket-${interaction.user.username}`,
-        type: 'GUILD_TEXT',
+        type: 0,
         parent: categoryID,
         topic: `Ticket type: ${selectedType}\nCreated at: ${new Date().toLocaleString()}`,
       });
