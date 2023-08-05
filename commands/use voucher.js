@@ -28,15 +28,15 @@ module.exports = {
       console.log('Connected to MySQL server.');
 
       // Check if the voucher code exists and is active
-      const [rows] = await connection.execute('SELECT * FROM voucher WHERE code = ? AND status = ?', [voucherCode, 'active']);
+      const [rows] = await connection.execute('SELECT * FROM voucher WHERE code = ? AND valid = ?', [voucherCode, 'active']);
       if (rows.length === 0) {
         // Voucher not found or not active
         return await interaction.followUp({ content: 'Invalid voucher code or the voucher has already been used/expired.', ephemeral: true });
       }
 
       // Mark the voucher as used
-      const voucherId = rows[0].id;
-      await connection.execute('UPDATE voucher SET status = ? WHERE id = ?', ['used', voucherId]);
+      const voucherId = rows[0].code;
+      await connection.execute('UPDATE voucher SET valid = ? WHERE code = ?', ['used', voucherId]);
 
       // Close the MySQL connection
       await connection.end();
