@@ -48,7 +48,7 @@ module.exports = {
       expiryDate.setMonth(expiryDate.getMonth() + CODE_EXPIRY_MONTHS);
 
       // Insert the voucher details into the table
-      await connection.execute('INSERT INTO voucher (code, expiry_date) VALUES (?, ?)', [voucherCode, expiryDate]);
+      await connection.execute('INSERT INTO voucher (code, date) VALUES (?, ?)', [voucherCode, expiryDate]);
 
       // Generate QR code
       const qrCodeCanvas = createCanvas(500, 500);
