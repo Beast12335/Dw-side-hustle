@@ -48,7 +48,7 @@ module.exports = {
       expiryDate.setMonth(expiryDate.getMonth() + CODE_EXPIRY_MONTHS);
 
       // Insert the voucher details into the table
-      await connection.execute('INSERT INTO voucher (code, date) VALUES (?, ?)', [voucherCode, expiryDate]);
+      await connection.execute('INSERT INTO voucher (code,status, date) VALUES (?,?, ?)', [voucherCode,'active', expiryDate]);
 
       // Generate QR code
       const qrCodeCanvas = createCanvas(500, 500);
@@ -67,13 +67,13 @@ module.exports = {
       ctx.fillStyle = 'white';
 
       // Write the voucher code
-      ctx.fillText(voucherCode, 492, 936);
+      ctx.fillText(voucherCode, 480, 936);
 
       // Draw the QR code
-      ctx.drawImage(qrCodeCanvas, 136, 255, 500, 500);
+      ctx.drawImage(qrCodeCanvas, 130, 255, 500, 500);
 
       // Write the expiry date
-      ctx.fillText(`Expiry Date: ${expiryDate.toISOString().slice(0, 10)}`, 1320, 763);
+      ctx.fillText(`${expiryDate.toISOString().slice(0, 10)}`, 1300, 763);
 
       // Save the canvas as a Discord attachment
       const attachment = new AttachmentBuilder(canvas.toBuffer(), 'voucher.png');
