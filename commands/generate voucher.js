@@ -16,7 +16,7 @@ module.exports = {
     .setDefaultPermission(false),
 
   async execute(interaction) {
-    
+    try {
       await interaction.deferReply()
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
@@ -84,6 +84,11 @@ module.exports = {
 
       // Close the MySQL connection
       await connection.end();
+
+    } catch (error) {
+      console.error('Error executing /generatevoucher command:', error);
+      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
+    }
   },
 };
 
