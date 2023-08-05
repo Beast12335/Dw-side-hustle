@@ -50,7 +50,7 @@ module.exports = {
             .setLabel('Delete')
             .setStyle('Danger')
           );
-    const action = new ActionBuilder()
+    const action = new ActionRowBuilder()
      .addComponents(
           new ButtonBuilder()
             .setCustomId('get_transcript')
