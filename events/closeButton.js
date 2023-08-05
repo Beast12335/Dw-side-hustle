@@ -1,4 +1,4 @@
-const { ActionRowBuilder, ButtonBuilder } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder,ButtonStyle } = require('discord.js');
 
 module.exports = {
   name: 'interactionCreate',
@@ -20,7 +20,7 @@ module.exports = {
 
       const confirmButton = { customId: 'confirm_close', label: 'Confirm', style: 'ButtonStyle.Danger' };
 
-      await interaction.reply({ embeds: [confirmEmbed], components: [{ type: 'ACTION_ROW', components: [confirmButton] }] });
+      await interaction.reply({ embeds: [confirmEmbed], components: [{ type: 1, components: [confirmButton] }] });
 
     } catch (error) {
       console.error('Error handling close button interaction:', error);
