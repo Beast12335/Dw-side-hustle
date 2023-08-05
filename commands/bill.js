@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, AttachmentBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
+const {createCanvas,loadImage} = require('canvas');
 
 const currencySymbols = {
   Dollar: '$',
@@ -77,7 +78,7 @@ module.exports = {
         ? customer.displayName
         : 'Anonymous';
 
-      const canvas = new Canvas(402, 752);
+      const canvas = createCanvas(402, 752);
       const ctx = canvas.getContext('2d');
 
       const background = await Canvas.loadImage('https://media.discordapp.net/attachments/916149747180511294/983757661348704276/DW_receipt.png');
