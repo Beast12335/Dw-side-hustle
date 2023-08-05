@@ -14,7 +14,7 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    
+    try {
       await interaction.deferReply()
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
@@ -37,5 +37,10 @@ module.exports = {
       await channel.setParent(categoryObj.id);
 
       await interaction.followUp({ content: `Channel moved to the category "${category}" successfully.`, ephemeral: true });
+
+    } catch (error) {
+      console.error('Error executing /completed command:', error);
+      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
+    }
   },
 };
