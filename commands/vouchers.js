@@ -29,9 +29,9 @@ module.exports = {
       const [rows] = await connection.execute('SELECT * FROM voucher');
 
       // Separate vouchers into active, used, and expired categories
-      const activeVouchers = rows.filter((voucher) => voucher.status === 'active');
-      const usedVouchers = rows.filter((voucher) => voucher.status === 'used');
-      const expiredVouchers = rows.filter((voucher) => voucher.status === 'expired');
+      const activeVouchers = rows.filter((voucher) => voucher.valid === 'active');
+      const usedVouchers = rows.filter((voucher) => voucher.valid === 'used');
+      const expiredVouchers = rows.filter((voucher) => voucher.valid === 'expired');
 
       // Create and send embeds for each category
       const activeEmbed = createVouchersEmbed('Active Vouchers', activeVouchers);
