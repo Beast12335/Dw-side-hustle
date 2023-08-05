@@ -113,15 +113,7 @@ module.exports = {
       const attachment = new AttachmentBuilder(canvas.toBuffer(), 'bill.png');
 
       const replyEmbed = {
-        files: [attachment],
-        components: [
-          new ActionRowBuilder().addComponents(
-            new ButtonBuilder()
-              .setURL(`attachment://bill.png`)
-              .setLabel('View Bill')
-              .setStyle('ButtonStyle.Link')
-          )
-        ]
+        files: [attachment]
       };
 
       await interaction.followUp(replyEmbed);
