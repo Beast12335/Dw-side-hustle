@@ -15,8 +15,9 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    
-      await interaction.deferReply()
+    await interaction.deferReply()
+    try {
+     // await interaction.deferReply()
       const voucherCode = interaction.options.getString('code');
 
       // Connect to the MySQL server
@@ -48,5 +49,10 @@ module.exports = {
         .setColor('#00ff00');
 
       await interaction.followUp({ embeds: [successEmbed] });
+
+    } catch (error) {
+      console.error('Error executing /usevoucher command:', error);
+      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
+    }
   },
 };
