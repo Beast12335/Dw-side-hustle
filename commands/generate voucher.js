@@ -67,13 +67,13 @@ module.exports = {
       ctx.fillStyle = 'white';
 
       // Write the voucher code
-      ctx.fillText(voucherCode, 480, 936);
+      ctx.fillText(voucherCode, 492, 936);
 
       // Draw the QR code
       ctx.drawImage(qrCodeCanvas, 130, 255, 500, 500);
-
+      ctx.font = "bold 55px Arial"
       // Write the expiry date
-      ctx.fillText(`${expiryDate.toISOString().slice(0, 10)}`, 1300, 763);
+      ctx.fillText(`${expiryDate.toDateString().slice(4,new Date(expiryDate).toDateString().length)}`, 1320, 763);
 
       // Save the canvas as a Discord attachment
       const attachment = new AttachmentBuilder(canvas.toBuffer(), 'voucher.png');
