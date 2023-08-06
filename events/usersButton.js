@@ -17,8 +17,8 @@ module.exports = {
         description: 'Choose an option to manage users:',
       };
 
-      const addUsersButton = { customId: 'add_users', label: 'Add Users', style: '3' };
-      const removeUsersButton = { customId: 'remove_users', label: 'Remove Users', style: '4' };
+      const addUsersButton = { customId: 'add_users', label: 'Add Users', style: 3 };
+      const removeUsersButton = { customId: 'remove_users', label: 'Remove Users', style: 4 };
 
       await interaction.reply({ embeds: [userOptionsEmbed], components: [{ type: 1, components: [addUsersButton, removeUsersButton] }] });
 
