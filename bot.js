@@ -5,7 +5,7 @@ const {Routes} = require('discord-api-types/v9');
 const fs = require('fs');
 require('dotenv').config();
 
-const client = new Client({intents: [GatewayIntentBits.Guilds]});
+const client = new Client({intents: [GatewayIntentBits.Guilds],[GatewayIntentBits.GuildMessages],[GatewayIntentBits.MessageContent]});
 client.commands = new Collection();
 
 const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
@@ -70,8 +70,7 @@ client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}.`);
   registerCommands();
   runCheckVouchersScript();
-  client.user.setAvatar('https://cdn.discordapp.com/icons/808758266792247297/3c7a14d0f10d9bd3be4921bf0e6be5ca.png');
-});
+  });
 // Increase the maximum listener limit for EventEmitter
 require('events').EventEmitter.defaultMaxListeners = 15; // Adjust the value as needed
 
