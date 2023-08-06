@@ -14,6 +14,7 @@ module.exports = {
       await interaction.reply({ content: 'Please provide the user ID you want to add to the channel.', ephemeral: false });
       const collector = interaction.channel.createMessageCollector( { time: 10000 }); // Collect messages for 10 seconds
       collector.on('collect', async (message) => {
+        console.log('hi')
         // Add the user with the provided ID to the channel
         const userIdToAdd = message.content;
         const userToAdd = await interaction.guild.members.fetch(userIdToAdd);
