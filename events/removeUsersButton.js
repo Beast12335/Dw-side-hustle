@@ -19,7 +19,7 @@ module.exports = {
         const userToRemove = await interaction.guild.members.fetch(userIdToRemove);
         if (!userToRemove) return; // User not found
 
-        await interaction.channel.permissionOverwrites.get(userToRemove.id)?.delete();
+        await interaction.channel.permissionOverwrites.delete(userIdToRemove);
 
         // Send a success message
         await interaction.channel.send(`User with ID ${userIdToRemove} has been removed from the channel.`);
