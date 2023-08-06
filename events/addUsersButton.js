@@ -12,7 +12,7 @@ module.exports = {
 
       // Example:
       await interaction.reply({ content: 'Please provide the user ID you want to add to the channel.', ephemeral: false });
-      const collector = interaction.channel.createMessageCollector( { time: 10000 }); // Collect messages for 10 seconds
+      const collector = interaction.channel.createMessageCollector( { time: 30000 }); // Collect messages for 10 seconds
       collector.on('collect', async (message) => {
         console.log('hi \n')
         console.log(message)
