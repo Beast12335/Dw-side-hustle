@@ -13,7 +13,7 @@ module.exports = {
 
       // Send an embed saying the ticket has been claimed by the user
       const claimEmbed = {
-        color: '#ff9900',
+        color: 0xff9900,
         description: `Ticket has been claimed by ${interaction.user.username}.`,
       };
 
