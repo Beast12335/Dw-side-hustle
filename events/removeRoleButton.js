@@ -19,7 +19,7 @@ module.exports = {
         const roleToRemove = interaction.guild.roles.cache.get(roleIdToRemove);
         if (!roleToRemove) return; // Role not found
 
-        await interaction.channel.permissionOverwrites.get(roleIdToRemove)?.delete();
+        await interaction.channel.permissionOverwrites.delete(roleIdToRemove);
 
         // Send a success message
         await interaction.channel.send(`Role with ID ${roleIdToRemove} has been removed from the channel.`);
