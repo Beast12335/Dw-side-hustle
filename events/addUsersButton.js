@@ -12,10 +12,8 @@ module.exports = {
 
       // Example:
       await interaction.reply({ content: 'Please provide the user ID you want to add to the channel.', ephemeral: false });
-      const collector = interaction.channel.createMessageCollector( { time: 30000 }); // Collect messages for 10 seconds
+      const collector = interaction.channel.createMessageCollector( { time: 10000 }); // Collect messages for 10 seconds
       collector.on('collect', async (message) => {
-        console.log('hi \n')
-        console.log(message)
         // Add the user with the provided ID to the channel
         const userIdToAdd = message.content;
         const userToAdd = await interaction.guild.members.fetch(userIdToAdd);
@@ -29,7 +27,7 @@ module.exports = {
 
       collector.on('end', collected => {
         console.log('collector for add users finished')
-        console.log(collected)
+        //console.log(collected)
         // Collection time expired, handle as needed
       });
 
