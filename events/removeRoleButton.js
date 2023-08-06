@@ -12,7 +12,7 @@ module.exports = {
 
       // Example:
       await interaction.reply({ content: 'Please provide the role ID you want to remove from the channel.', ephemeral: false });
-      const collector = new MessageCollector(interaction.channel, { time: 10000 }); // Collect messages for 10 seconds
+      const collector = interaction.channel.createMessageCollector({ time: 10000 }); // Collect messages for 10 seconds
       collector.on('collect', async (message) => {
         // Remove the role with the provided ID from the channel
         const roleIdToRemove = message.content;
@@ -26,6 +26,7 @@ module.exports = {
       });
 
       collector.on('end', () => {
+         console.log('role removing collector ended')
         // Collection time expired, handle as needed
       });
 
