@@ -10,8 +10,8 @@ module.exports = {
       const selectedType = interaction.values[0];
 
       // Create the ticket channel in the category with ID 294829283
-      const categoryID = '860512303233236994';
-      const ticketChannel = await interaction.guild.channels.create({name:`ticket-${interaction.user.username}`,
+      const categoryID = '914051161068302337';
+      const ticketChannel = await interaction.guild.channels.create({name:`🎟️•gfx•${interaction.user.username}`,
         type: 0,
         parent: categoryID,
         topic: `Ticket type: ${selectedType}\nCreated at: ${new Date().toLocaleString()}`,
@@ -60,11 +60,19 @@ module.exports = {
 
       // Send the welcome embed with buttons in the ticket channel
       const welcomeEmbed = new EmbedBuilder()
-        .setTitle(`Welcome to your ${selectedType} Ticket!`)
-        .setDescription('Please be patient and avoid pinging. Our support team will assist you shortly.')
+        .setTitle(` Ticket for ${interaction.user.username}`)
+        .setDescription(`Welcome, <@${interaction.user.id}> 
+
+Thank you opening a ticket.  **Please let us know the following details about your order:**
+          
+**__1. What do you want to order? 
+    2. Any specific designs or colors? 
+    3. If available,kindly provide link to the inspiration for the design.__**
+          
+Thank you for the kind cooperation`)
         .setColor('#00ff00');
 
-      await ticketChannel.send({ embeds: [welcomeEmbed], components: [actionRow,action] });
+      await ticketChannel.send({content`<@${interaction.user.id}> <@914051146807668806> <@914051147495538738> <@914051151169716245>`,embeds: [welcomeEmbed], components: [actionRow,action] });
 
     } catch (error) {
       console.error('Error handling select menu interaction:', error);
