@@ -18,7 +18,7 @@ module.exports = {
         description: 'Confirm you wish to close the ticket.',
       };
 
-      const confirmButton = { customId: 'confirm_close', label: 'Confirm', style: 'ButtonStyle.Danger' };
+      const confirmButton = { customId: 'confirm_close', label: 'Confirm', style: 4 };
 
       await interaction.reply({ embeds: [confirmEmbed], components: [{ type: 1, components: [confirmButton] }] });
 
