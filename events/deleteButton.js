@@ -14,7 +14,7 @@ module.exports = {
 
       // Send a confirmation message with a red button to confirm the ticket deletion
       const confirmEmbed = {
-        color: 'RED',
+        color: 0xff0000,
         description: 'Confirm you wish to delete the ticket.',
       };
 
