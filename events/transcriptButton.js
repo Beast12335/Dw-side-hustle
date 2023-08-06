@@ -4,7 +4,7 @@ module.exports = {
   name: 'interactionCreate',
   async execute(interaction) {
     if (!interaction.isButton()) return;
-    if (interaction.customId !== 'transcript_button') return;
+    if (interaction.customId !== 'get_transcript') return;
 
     try {
       // Check if the user has admin permissions
