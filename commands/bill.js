@@ -88,16 +88,16 @@ module.exports = {
       ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
 
-      ctx.fillText(`${currencySymbol} ${grandTotal}`, 225, 641);
+      ctx.fillText(`${currencySymbol} ${grandTotal}`, 227, 641);
       ctx.fillText(discount, 262, 518);
-      ctx.fillText(`${currencySymbol} ${price}`, 232, 395);
+      ctx.fillText(`${currencySymbol} ${price}`, 235, 395);
 
       if (order.length < 10) {
         ctx.fillText(order, 252, 269);
       } else if (order.length > 10 && order.length < 15) {
         ctx.fillText(order, 275, 320);
       } else {
-        ctx.fillText(order, 185, 190);
+        ctx.fillText(order, 185, 320);
       }
 
       if (customerName !== 'Anonymous') {
