@@ -27,8 +27,9 @@ module.exports = {
         await interaction.channel.send(`User with ID ${userIdToAdd} has been added to the channel.`);
       });
 
-      collector.on('end', () => {
+      collector.on('end', collected => {
         console.log('collector for add users finished')
+        console.log(collected)
         // Collection time expired, handle as needed
       });
 
