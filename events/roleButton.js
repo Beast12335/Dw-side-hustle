@@ -13,12 +13,12 @@ module.exports = {
 
       // Send an embed with two buttons to add or remove roles
       const roleOptionsEmbed = {
-        color: '#00ff00',
+        color: 0x00ff00,
         description: 'Choose an option to manage roles:',
       };
 
-      const addRolesButton = { customId: 'add_roles', label: 'Add Roles', style: 3 };
-      const removeRolesButton = { customId: 'remove_roles', label: 'Remove Roles', style: 4 };
+      const addRolesButton = { type:2,custom_id: 'add_roles', label: 'Add Roles', style: 3 };
+      const removeRolesButton = { type:2,custom_id: 'remove_roles', label: 'Remove Roles', style: 4 };
 
       await interaction.reply({ embeds: [roleOptionsEmbed], components: [{ type: 1, components: [addRolesButton, removeRolesButton] }] });
 
