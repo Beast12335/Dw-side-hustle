@@ -13,7 +13,7 @@ module.exports = {
 
       // Send an embed with two buttons to add or remove users
       const userOptionsEmbed = {
-        color: '#00ff00',
+        color: 0x00ff00,
         description: 'Choose an option to manage users:',
       };
 
