@@ -20,10 +20,15 @@ module.exports = {
       }
 
       // Generate and send the transcript
-      await transcript(interaction.channel);
+      const t = await transcript(interaction.channel);
 
       // Send a confirmation message for closing the ticket
       await interaction.channel.send('The ticket has been closed.');
+      const transcriptChannelId = '914051184820633620'; // Replace with the desired channel ID to send the transcript
+      const transcriptChannel = interaction.guild.channels.cache.get(transcriptChannelId);
+      if (transcriptChannel) {
+        await transcriptChannel.send({files:[t]});
+      }
 
     } catch (error) {
       console.error('Error handling confirm close button interaction:', error);
