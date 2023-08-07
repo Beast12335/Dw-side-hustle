@@ -13,10 +13,10 @@ module.exports = {
       }
 
       // Generate and send the transcript
-      const t = await transcript.createTranscript(interaction.channel,{le
-filename: interaction.channel.name,
-                                                                       saveImages:true,
-                                                                       poweredBy:false
+      const t = await transcript.createTranscript(interaction.channel,{
+        filename: interaction.channel.name,
+        saveImages:true,
+        poweredBy:false
       });
 
       // Send a confirmation message for deleting the ticket
