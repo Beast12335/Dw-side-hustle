@@ -9,9 +9,9 @@ module.exports = {
       // Get the selected value from the select menu
       const selectedType = interaction.values[0];
       const category ={
-        'partner':917382143959781406,
-        'staff':917382026108215347,
-        'support':917381935372832769}
+        'partner':'917382143959781406',
+        'staff':'917382026108215347',
+        'support':'917381935372832769'}
       const message = {
         'partner':`Hlo <@${interaction.user.id}>.
         Welcome to **__Design Wonderland.__**
