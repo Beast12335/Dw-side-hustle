@@ -4,6 +4,7 @@ module.exports = {
   name: 'interactionCreate',
   async execute(interaction) {
     if (!interaction.isStringSelectMenu()) return;
+    if (interaction.customId !== 'ticket_type')return;
 
     try {
       // Get the selected value from the select menu
