@@ -6,8 +6,8 @@ module.exports = {
 
     try {
       // Check if the user has the role with ID 38292739
-      const roleId = '914051151169716245';
-      if (!interaction.member.roles.cache.has(roleId)) {
+      //const roleId = '914051151169716245';
+      if (!interaction.member.permissions.has('ADMINISTRATOR')) {
         return await interaction.reply({ content: 'You do not have permission to claim this ticket.', ephemeral: true });
       }
 
