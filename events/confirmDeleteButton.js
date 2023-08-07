@@ -15,16 +15,16 @@ module.exports = {
       // Generate and send the transcript
       const t = await transcript(interaction.channel);
 
-      await wait(5000)
-      // Delete the ticket channel
-      await interaction.channel.delete();
-
       // Send a confirmation message for deleting the ticket
       const transcriptChannelId = '914051184820633620'; // Replace with the desired channel ID to send the transcript
       const transcriptChannel = interaction.guild.channels.cache.get(transcriptChannelId);
       if (transcriptChannel) {
         await transcriptChannel.send({files:[t]});
       }
+      // Delete the ticket channel
+      await interaction.channel.delete();
+
+      
 
     } catch (error) {
       console.error('Error handling confirm delete button interaction:', error);
