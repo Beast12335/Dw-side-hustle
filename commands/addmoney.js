@@ -29,7 +29,7 @@ module.exports = {
       const connection = await mysql.createConnection(process.env.DB_URL);
 
       // Insert the user and money into the 'money' table
-      const [rows] = await connection.execute('INSERT INTO money (user,money) VALUES (?, ?)', [userId, parseInt(amount)]);
+      const [rows] = await connection.execute('INSERT INTO money (user,balance) VALUES (?, ?)', [userId, parseInt(amount)]);
 
       await connection.end();
 
