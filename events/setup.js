@@ -62,11 +62,11 @@ module.exports = {
           new ButtonBuilder()
             .setCustomId('view_users')
             .setLabel('Users')
-            .setStyle('Sucess'),
+            .setStyle('Success'),
           new ButtonBuilder()
             .setCustomId('assign_role')
             .setLabel('Role')
-            .setStyle('Sucess'),
+            .setStyle('Success'),
           new ButtonBuilder()
             .setCustomId('close_ticket')
             .setLabel('Close')
