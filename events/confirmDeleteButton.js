@@ -14,7 +14,7 @@ module.exports = {
 
       // Generate and send the transcript
       const t = await transcript.createTranscript(interaction.channel,{
-        filename: interaction.channel.name,
+        filename: `${interaction.channel.name}.html`,
         saveImages:true,
         poweredBy:false
       });
