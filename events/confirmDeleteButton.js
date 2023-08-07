@@ -13,16 +13,17 @@ module.exports = {
       }
 
       // Generate and send the transcript
-      await transcript(interaction.channel);
+      const t = await transcript(interaction.channel);
 
+      await wait(5000)
       // Delete the ticket channel
       await interaction.channel.delete();
 
       // Send a confirmation message for deleting the ticket
-      const transcriptChannelId = '393829383'; // Replace with the desired channel ID to send the transcript
+      const transcriptChannelId = '914051184820633620'; // Replace with the desired channel ID to send the transcript
       const transcriptChannel = interaction.guild.channels.cache.get(transcriptChannelId);
       if (transcriptChannel) {
-        await transcriptChannel.send('The ticket has been deleted.');
+        await transcriptChannel.send({files:[t]});
       }
 
     } catch (error) {
