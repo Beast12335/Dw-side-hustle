@@ -1,4 +1,4 @@
-const transcript = require('../events/transcript.js');
+const transcript = require('discord-html-transcripts');
 
 module.exports = {
   name: 'interactionCreate',
@@ -13,7 +13,11 @@ module.exports = {
       }
 
       // Generate and send the transcript
-      const t = await transcript(interaction.channel);
+      const t = await transcript.createTranscript(interaction.channel,{le
+filename: interaction.channel.name,
+                                                                       saveImages:true,
+                                                                       poweredBy:false
+      });
 
       // Send a confirmation message for deleting the ticket
       const transcriptChannelId = '914051184820633620'; // Replace with the desired channel ID to send the transcript
