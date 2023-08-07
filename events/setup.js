@@ -43,9 +43,9 @@ module.exports = {
                               {
                                 id: interaction.user.id,
                                 allow: PermissionsBitField.ViewChannel},
-                                {id:914051151169716245,
+                               /* {id:914051151169716245,
                                 allow: PermissionsBitField.ViewChannel
-                                }
+                                }*/
                                 ]
       });
       //await ticketChannel.permissionOverwrites.create(interaction.guild.id,{ViewChannel:false});
