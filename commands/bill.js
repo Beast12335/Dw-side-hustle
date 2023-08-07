@@ -63,7 +63,7 @@ module.exports = {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
-      const customer = interaction.options.getUser('customer');
+      const customer = interaction.options.getMember('customer');
       const order = interaction.options.getString('order');
       const price = interaction.options.getString('price');
       const discount = interaction.options.getString('discount');
