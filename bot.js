@@ -26,7 +26,7 @@ const registerCommands = async () => {
 
     const rest = new REST({version: '9'}).setToken(BOT_TOKEN);
     await rest.put(
-      Routes.applicationGuildCommands(client.user.id, '860512303233236992'),
+      Routes.applicationGuildCommands(client.user.id),
       {
         body: commands,
       }
