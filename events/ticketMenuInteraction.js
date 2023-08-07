@@ -73,7 +73,7 @@ Thank you opening a ticket.  **Please let us know the following details about yo
 Thank you for the kind cooperation`)
         .setColor('#00ff00');
 
-      await ticketChannel.send({content:`<@${interaction.user.id}> <@914051146807668806> <@914051147495538738> <@914051151169716245>`,embeds: [welcomeEmbed], components: [actionRow,action] });
+      await ticketChannel.send({content:`<@${interaction.user.id}> <@&914051146807668806> <@&914051147495538738> <@&914051151169716245>`,embeds: [welcomeEmbed], components: [actionRow,action] });
 
     } catch (error) {
       console.error('Error handling select menu interaction:', error);
