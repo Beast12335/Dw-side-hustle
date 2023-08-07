@@ -13,7 +13,7 @@ module.exports = {
         'staff':917382026108215347,
         'support':917381935372832769}
       const message = {
-        'partner':`Hlo <@${context.params.event.member.user.id}>.
+        'partner':`Hlo <@${interaction.user.id}>.
         Welcome to **__Design Wonderland.__**
         Thanks for making a ticket. Pls answer a few questions. 
                     
@@ -21,7 +21,7 @@ module.exports = {
          2. Why do want to partner with us? 
          3. How will our server benefitted with this partnership? 
          4. Do you have any suggestions for our server? If yes, please share them.`,
-        'staff':`Welcome <@${context.params.event.member.user.id}>
+        'staff':`Welcome <@${interaction.user.id}>
         Thanks for applying!!
                       
         Please answer the questions below :
