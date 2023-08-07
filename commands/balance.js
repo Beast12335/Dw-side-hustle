@@ -21,7 +21,7 @@ module.exports = {
       const connection = await mysql.createConnection(process.env.DB_URL);
 
       // Fetch the money balance for the user from the 'money' table
-      const [rows] = await connection.execute('SELECT money FROM money WHERE user = ?', [userId]);
+      const [rows] = await connection.execute('SELECT balance FROM money WHERE user = ?', [userId]);
 
       await connection.end();
 
