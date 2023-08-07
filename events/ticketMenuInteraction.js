@@ -10,7 +10,7 @@ module.exports = {
       const selectedType = interaction.values[0];
 
       // Create the ticket channel in the category with ID 294829283
-      const categoryID = '914051161068302337';
+      const categoryID = '860512303233236994';
       const ticketChannel = await interaction.guild.channels.create({name:`🎟️•gfx•${interaction.user.username}`,
         type: 0,
         parent: categoryID,
