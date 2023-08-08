@@ -11,7 +11,7 @@ module.exports = {
       const q2 = interaction.fields.getTextInputValue('q2')
       const q3 = interaction.fields.getTextInputValue('q3')
       
-      const embed = new Embed()
+      const embed = new EmbedBuilder()
       .setTitle('Form Submission')
       .setColor('#ff00f0')
       .setDescription(`${interaction.user.username} says:
@@ -25,7 +25,7 @@ module.exports = {
       await interaction.reply({ embeds: [embed]});
 
     } catch (error) {
-      console.error('Error handling delete button interaction:', error);
+      console.error('Error handling modal submit button interaction:', error);
     }
   },
 };
