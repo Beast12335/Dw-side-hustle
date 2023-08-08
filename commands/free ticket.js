@@ -35,7 +35,7 @@ module.exports = {
       // Create a select menu with options from the types array
       const button = new ButtonBuilder()
       .setCustomId('free')
-      .setStyle(ButtonStyle.Danger)
+      .setStyle(ButtonStyle.Success)
       .setLabel('Claim GFX')
       .setEmoji('🎟️');
 
