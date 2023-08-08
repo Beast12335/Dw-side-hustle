@@ -15,11 +15,11 @@ module.exports = {
       .setTitle('Form Submission')
       .setColor('#ff00f0')
       .setDescription(`${interaction.user.username} says:
-      1. What do you want to order?
+      1. What do you want to order? \n
       > ${q1}
-      2. Tell us more about your order
+      2. Tell us more about your order \n
       > ${q2}
-      3. Any inspiration or source for your order?
+      3. Any inspiration or source for your order? \n
       > ${q3}`);
       
       await interaction.reply({ embeds: [embed]});
