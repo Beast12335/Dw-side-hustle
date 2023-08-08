@@ -22,7 +22,7 @@ module.exports = {
                                 id: interaction.user.id,
                                 allow: PermissionsBitField.ViewChannel},
                                 {
-                                  id:914051151169716245,
+                                  id:`914051151169716245`,
                                   type:0,
                                   allow: PermissionsBitField.ViewChannel}
                                   ]
