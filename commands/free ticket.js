@@ -14,7 +14,7 @@ module.exports = {
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
-      
+      const channel = interaction.channel
       const message = `Order any GFX of your wish 
       In order to get a gfx, you need to meet at least 2 Requirements: 
       -) You are not banned from tickets 
