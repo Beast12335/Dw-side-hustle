@@ -58,6 +58,14 @@ module.exports = {
             .setLabel('Transcript')
             .setStyle('Secondary')
         );
+    const modal = new ActionRowBuilder()
+      .addComponents(
+        new ButtonBuilder()
+        .setCustomId('modal')
+        .setLabel('Start')
+        .setStyle('Success')
+        .setEmoji('🖊️')
+        );
 
       // Send the welcome embed with buttons in the ticket channel
       const welcomeEmbed = new EmbedBuilder()
@@ -72,8 +80,13 @@ Thank you opening a ticket.  **Please let us know the following details about yo
           
 Thank you for the kind cooperation`)
         .setColor('#00ff00');
+      const embed = new EmbedBuilder()
+      .setTitle('Fill the form')
+      .setDescription('Kindly click on the button below to start filling the form.')
+      .setColor('#00ffff');
 
-      await ticketChannel.send({content:`<@${interaction.user.id}> <@&914051146807668806> <@&914051147495538738> <@&914051151169716245>`,embeds: [welcomeEmbed], components: [actionRow,action] });
+      await ticketChannel.send({content:`<@${interaction.user.id}> <@&914051146807668806> <@&914051147495538738> <@&914051151169716245>`,embeds: [welcomeEmbed], components: [actionRow,action] })
+      await ticketChannel.send({embeds:[embed], components:[modal]});
 
     } catch (error) {
       console.error('Error handling select menu interaction:', error);
