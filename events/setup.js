@@ -42,10 +42,11 @@ module.exports = {
           deny: PermissionsBitField.Flags.ViewChannel},
                               {
                                 id: interaction.user.id,
-                                allow: PermissionsBitField.ViewChannel},
-                               /* {id:914051151169716245,
-                                allow: PermissionsBitField.ViewChannel
-                                }*/
+                                allow: PermissionsBitField.Flags.ViewChannel},
+                               {id:`914051151169716245`,
+                                allow: PermissionsBitField.Flags.ViewChannel,
+                                type:0
+                                }
                                 ]
       });
       //await ticketChannel.permissionOverwrites.create(interaction.guild.id,{ViewChannel:false});
