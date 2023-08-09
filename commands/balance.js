@@ -5,7 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('balance')
     .setDescription('Check your balance.')
-    .setDefaultPermission(false) // Default permission set to false to be managed with the role permissions
+    .setDefaultPermission(false), // Default permission set to false to be managed with the role permissions
   async execute(interaction) {
       await interaction.deferReply()
     // Check if the user is an admin (you may need to customize this check based on your admin role)
