@@ -72,7 +72,7 @@ client.once('ready', () => {
   runCheckVouchersScript();
   });
 // Increase the maximum listener limit for EventEmitter
-require('events').EventEmitter.defaultMaxListeners = 15; // Adjust the value as needed
+require('events').EventEmitter.defaultMaxListeners = 25; // Adjust the value as needed
 
 // Event handler for interactions
 client.on('interactionCreate', async (interaction) => {
