@@ -21,7 +21,11 @@ module.exports = {
           deny: PermissionsBitField.Flags.ViewChannel},
                               {
                                 id: interaction.user.id,
-                                allow: PermissionsBitField.ViewChannel}]
+                                allow: PermissionsBitField.Flags.ViewChannel},
+                              {
+                                id : `914051151169716245`,
+                                type:0,
+                                allow: PermissionsBitField.Flags.ViewChannel}]
       });
       //await ticketChannel.permissionOverwrites.create(interaction.guild.id,{ViewChannel:false});
       // Send an ephemeral message indicating the ticket creation
