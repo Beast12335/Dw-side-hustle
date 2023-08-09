@@ -16,7 +16,7 @@ module.exports = {
             interaction.followUp({ content: 'You do not have permission to interact with this select menu.', ephemeral: true });
             return;
           }
-      await interaction.followUp({ content: `How much coins would you like to add to ${selectedUser}? Please reply within 20 seconds.`, ephemeral: true });
+      await interaction.followUp({ content: `How much coins would you like to add to ${selectedUser}? Please reply within 20 seconds.`, ephemeral: false });
       
       const collector = interaction.channel.createMessageCollector({ time: 20000 });
       
