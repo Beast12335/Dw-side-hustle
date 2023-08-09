@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName(remove-coins')
+    .setName('remove-coins')
     .setDescription('Remove coins from a user.')
     .setDefaultPermission(false) // Default permission set to false to be managed with the role permissions
     .addUserOption((option) =>
