@@ -3,8 +3,8 @@ const mysql = require('mysql2/promise');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('addmoney')
-    .setDescription('Add money to a user.')
+    .setName('add-coins')
+    .setDescription('Add coins to a user.')
     .setDefaultPermission(false) // Default permission set to false to be managed with the role permissions
     .addUserOption((option) =>
       option.setName('user').setDescription('The user to add money to').setRequired(true)
@@ -29,7 +29,7 @@ module.exports = {
       const connection = await mysql.createConnection(process.env.DB_URL);
 
       // Insert the user and money into the 'money' table
-      const [rows] = await connection.execute('INSERT INTO money (user,balance) VALUES (?, ?)', [userId, parseInt(amount)]);
+      const [rows] = await connection.execute('UPDATE money set balance = ? where user = ?', [parseInt(amount),userId]);
 
       await connection.end();
 
