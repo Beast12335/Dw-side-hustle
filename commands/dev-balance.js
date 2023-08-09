@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('balance')
+    .setName('dev-balance')
     .setDescription('Check the money balance of a user.')
     .setDefaultPermission(false) // Default permission set to false to be managed with the role permissions
     .addUserOption((option) => option.setName('user').setDescription('The user to check the balance for').setRequired(true)),
@@ -29,8 +29,8 @@ module.exports = {
         return interaction.followUp({ content: 'No balance found for the user.', ephemeral: false });
       }
 
-      const balance = rows[0].money;
-      await interaction.followUp({ content: `Money balance for the user: ${balance}`, ephemeral: true });
+      const balance = rows[0].balance;
+      await interaction.followUp({ content: `Money balance for the <@${userId}>: ${balance} coins`, ephemeral: false });
     } catch (error) {
       console.error(error);
       await interaction.followUp({ content: 'An error occurred while checking the balance.', ephemeral: true });
