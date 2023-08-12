@@ -27,9 +27,13 @@ module.exports = {
 
     try {
       const connection = await mysql.createConnection(process.env.DB_URL);
+      const expired = 3;
+      const expiryDate = new Date();
+      expiryDate.setMonth(expiryDate.getMonth() + expired);
+
 
       // Insert the user and money into the 'money' table
-      const [rows] = await connection.execute('UPDATE money set balance = balance + ? where user = ?', [parseInt(amount),userId]);
+      const [rows] = await connection.execute('insert into money (user,balance,expiry) values(?,?,?)', userId,[parseInt(amount),expiryDate]);
 
       await connection.end();
 
