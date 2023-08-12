@@ -26,7 +26,7 @@ module.exports = {
         .setPlaceholder('Choose a user')
         .addOptions(rows.map(row => ({
           label: row.name,
-          description: `Balance: ${row.balance}`,
+          description: `Balance:`,
           value: row.name,
         })));
       
