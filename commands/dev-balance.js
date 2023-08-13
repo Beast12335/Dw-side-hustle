@@ -29,7 +29,7 @@ module.exports = {
         return interaction.followUp({ content: 'No balance found for the user.', ephemeral: false });
       }
 
-      const balance = rows[0].balance;
+      const balance = rows[0].sum(balance);
       await interaction.followUp({ content: `Money balance for the <@${userId}>: ${balance} coins`, ephemeral: false });
     } catch (error) {
       console.error(error);
