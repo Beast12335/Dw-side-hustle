@@ -19,14 +19,14 @@ module.exports = {
     try {
       const connection = await mysql.createConnection(process.env.DB_URL);
       
-      const [rows] = await connection.execute('SELECT * FROM money WHERE user = "000"');
+      const [rows] = await connection.execute('SELECT distinct name FROM money WHERE user = "000"');
       
       const selectMenu = new StringSelectMenuBuilder()
         .setCustomId('remove_money')
         .setPlaceholder('Choose a user')
         .addOptions(rows.map(row => ({
           label: row.name,
-          description: `Balance:`,
+          description: ` `,
           value: row.name,
         })));
       
