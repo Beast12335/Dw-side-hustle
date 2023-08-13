@@ -19,6 +19,10 @@ module.exports = {
       await interaction.followUp({ content: `How much coins would you like to add to ${selectedUser}? Please reply within 20 seconds.`, ephemeral: false });
       
       const collector = interaction.channel.createMessageCollector({ time: 20000 });
+      const expired = 3;
+      const expiryDate = new Date();
+      expiryDate.setMonth(expiryDate.getMonth() + expired);
+
       
       collector.on('collect', async m => {
           const coinsToAdd = parseFloat(m.content);
@@ -28,7 +32,7 @@ module.exports = {
             return;
             }
       
-          const [updateResult] = await connection.execute('insert into money values('000',?,?,?)', [selectedUser,coinsToAdd,expired]);
+          const [updateResult] = await connection.execute('insert into money values('000',?,?,?)', [selectedUser,coinsToAdd,expiryDate]);
       
           if (updateResult.affectedRows === 1) {
             await interaction.followUp(`Successfully added ${coinsToAdd} coins to ${selectedUser}'s balance.`);
