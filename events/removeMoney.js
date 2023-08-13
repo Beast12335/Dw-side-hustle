@@ -28,7 +28,7 @@ module.exports = {
             return;
             }
       
-          const [updateResult] = await connection.execute('UPDATE money SET balance = balance - ? WHERE name = ?', [coinsToAdd, selectedUser]);
+          const [updateResult] = await connection.execute('insert into money values('000',?,`-${coinsToAdd}`,?)', [selectedUser, expired]);
       
           if (updateResult.affectedRows === 1) {
             await interaction.followUp(`Successfully removed ${coinsToAdd} coins from ${selectedUser}'s balance.`);
