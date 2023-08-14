@@ -6,7 +6,7 @@ const fs = require('fs');
 const mysql = require('mysql2')
 require('dotenv').config();
 
-const client = new Client({intents: [GatewayIntentBits.Guilds,GatewayIntentBits.GuildMessages,GatewayIntentBits.MessageContent]});
+const client = new Client({intents: [GatewayIntentBits.Guilds,GatewayIntentBits.GuildMembers,GatewayIntentBits.GuildMessages,GatewayIntentBits.MessageContent]});
 client.commands = new Collection();
 
 const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
