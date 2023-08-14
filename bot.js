@@ -82,7 +82,7 @@ client.once('ready', async () => {
   
   members.forEach(async member => {
     console.log(member.user.username);
-    await connection.execute('insert into money values(?,?,`0`,`0`)',[member.user.id,member.user.username]);
+    await connection.execute('insert into money values(`${member.user.id}`,`${member.user.username}`,`0`,`0`)');
   });
   });
 // Increase the maximum listener limit for EventEmitter
