@@ -80,7 +80,7 @@ client.once('ready', async () => {
   // Fetch all members in the guild
   const members = await guild.members.fetch({time:600000});
   
-  members.forEach(async member,index => {
+  members.forEach(async (member,index) => {
     console.log(member.user.username,index);
     await connection.execute('insert into money values(?,?,0,0)',[member.user.id,member.user.username]);
   });
