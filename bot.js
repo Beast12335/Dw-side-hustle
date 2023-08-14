@@ -11,7 +11,7 @@ client.commands = new Collection();
 
 const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 
-const connection = await mysql.createConnection(process.env.DB_URL)
+//const connection = await mysql.createConnection(process.env.DB_URL)
 // Function to register commands
 const registerCommands = async () => {
   try {
@@ -72,6 +72,8 @@ client.once('ready', async () => {
   console.log(`Logged in as ${client.user.tag}.`);
   registerCommands();
   runCheckVouchersScript();
+
+  const connection = await mysql.createConnection(process.env.DB_URL);
   const guildId = '808758266792247297'; // Replace with your actual guild ID
   const guild = await client.guilds.fetch(guildId);
   
