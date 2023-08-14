@@ -3,6 +3,7 @@ const {Client, GatewayIntentBits, Collection} = require('discord.js');
 const {REST} = require('@discordjs/rest');
 const {Routes} = require('discord-api-types/v9');
 const fs = require('fs');
+const mysql = require('mysql2')
 require('dotenv').config();
 
 const client = new Client({intents: [GatewayIntentBits.Guilds,GatewayIntentBits.GuildMessages,GatewayIntentBits.MessageContent]});
@@ -10,6 +11,7 @@ client.commands = new Collection();
 
 const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 
+const connection = await mysql.createConnection(process.env.DB_URL)
 // Function to register commands
 const registerCommands = async () => {
   try {
@@ -66,10 +68,20 @@ function runCheckVouchersScript() {
   }
 }
 // Event handler when the bot is ready
-client.once('ready', () => {
+client.once('ready', async () => {
   console.log(`Logged in as ${client.user.tag}.`);
   registerCommands();
   runCheckVouchersScript();
+  const guildId = '808758266792247297'; // Replace with your actual guild ID
+  const guild = await client.guilds.fetch(guildId);
+  
+  // Fetch all members in the guild
+  const members = await guild.members.fetch();
+  
+  members.forEach(async member => {
+    console.log(member.user.username);
+    await connection.execute('insert into money values(?,?,`0`,`0`)',[member.user.id,member.user.username]);
+  });
   });
 // Increase the maximum listener limit for EventEmitter
 require('events').EventEmitter.defaultMaxListeners = 25; // Adjust the value as needed
