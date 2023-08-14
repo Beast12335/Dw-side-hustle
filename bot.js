@@ -75,7 +75,7 @@ client.once('ready', async () => {
 
   const connection = await mysql.createConnection(process.env.DB_URL);
   const guildId = '808758266792247297'; // Replace with your actual guild ID
-  const guild = await client.guilds.fetch(guildId);
+  const guild = await client.guilds.fetch(guildId,{fetchAllMembers:true});
   
   // Fetch all members in the guild
   const members = await guild.members.fetch();
