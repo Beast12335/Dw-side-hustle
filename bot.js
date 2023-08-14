@@ -3,7 +3,6 @@ const {Client, GatewayIntentBits, Collection} = require('discord.js');
 const {REST} = require('@discordjs/rest');
 const {Routes} = require('discord-api-types/v9');
 const fs = require('fs');
-const mysql = require('mysql2')
 require('dotenv').config();
 
 const client = new Client({intents: [GatewayIntentBits.Guilds,GatewayIntentBits.GuildMembers,GatewayIntentBits.GuildMessages,GatewayIntentBits.MessageContent]});
@@ -72,18 +71,6 @@ client.once('ready', async () => {
   console.log(`Logged in as ${client.user.tag}.`);
   registerCommands();
   runCheckVouchersScript();
-
-  const connection = await mysql.createConnection(process.env.DB_URL);
-  const guildId = '808758266792247297'; // Replace with your actual guild ID
-  const guild = await client.guilds.fetch(guildId,{fetchAllMembers:true});
-  
-  // Fetch all members in the guild
-  const members = await guild.members.fetch({time:600000});
-  
-  members.forEach(async (member,index) => {
-    console.log(member.user.username,index);
-    await connection.execute('insert into money values(?,?,0,0)',[member.user.id,member.user.username]);
-  });
   });
 // Increase the maximum listener limit for EventEmitter
 require('events').EventEmitter.defaultMaxListeners = 25; // Adjust the value as needed
