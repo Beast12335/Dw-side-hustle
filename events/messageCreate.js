@@ -21,10 +21,10 @@ module.exports = {
         if(message.author.bot){
           const msg = message.content.slice(0,19)
 
-          if(message.includes('add'){
+          if(message.includes('add')){
             await connection.execute('insert into money(user,balance,expiry) values(?,?,?)',[msg,'0.5',expiryDate]);
           }
-          else if(message.includes('remove'){
+          else if(message.includes('remove')){
             await connection.execute('insert into money(user,balance,expiry) values(?,?,?)',[msg,'-0.5',expiryDate]);
           }
         }
