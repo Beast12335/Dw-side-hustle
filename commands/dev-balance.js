@@ -21,7 +21,7 @@ module.exports = {
       const connection = await mysql.createConnection(process.env.DB_URL);
 
       // Fetch the money balance for the user from the 'money' table
-      const [rows] = await connection.execute('SELECT sum(balance) FROM money WHERE user = ?', [userId]);
+      const [rows] = await connection.execute('SELECT sum(balance) as total FROM money WHERE user = ?', [userId]);
 
       await connection.end();
 
@@ -29,7 +29,7 @@ module.exports = {
         return interaction.followUp({ content: 'No balance found for the user.', ephemeral: false });
       }
 
-      const balance = rows[0].sum(balance);
+      const balance = rows[0].total;
       await interaction.followUp({ content: `Money balance for the <@${userId}>: ${balance} coins`, ephemeral: false });
     } catch (error) {
       console.error(error);
