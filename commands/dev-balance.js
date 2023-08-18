@@ -15,7 +15,7 @@ module.exports = {
       return interaction.followUp({ content: 'You do not have permission to use this command.', ephemeral: true });
     }
 
-    const userId = interaction.options.getUser('user');
+    const userId = interaction.options.getUser('user').id;
 
     try {
       const connection = await mysql.createConnection(process.env.DB_URL);
