@@ -18,7 +18,7 @@ module.exports = {
       return interaction.followUp({ content: 'You do not have permission to use this command.', ephemeral: true });
     }
 
-    const userId = interaction.options.getUser('user');
+    const userId = interaction.options.getUser('user').id;
     const amount = interaction.options.getString('money');
 
     if (!amount.match(/^\d+$/)) {
