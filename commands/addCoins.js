@@ -19,6 +19,8 @@ module.exports = {
     }
 
     const userId = interaction.options.getUser('user').id;
+    const b = interaction.options.getUser('user')
+
     const amount = interaction.options.getString('money');
 
     if (!amount.match(/^\d+$/)) {
@@ -37,7 +39,7 @@ module.exports = {
 
       await connection.end();
 
-      await interaction.followUp({ content: `Successfully added ${amount} money to the user.` });
+      await interaction.followUp({ content: `Successfully added ${amount} coins to ${b.username}.` });
     } catch (error) {
       console.error(error);
       await interaction.followUp({ content: 'An error occurred while adding money.', ephemeral: true });
