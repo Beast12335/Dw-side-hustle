@@ -33,7 +33,7 @@ module.exports = {
 
 
       // Insert the user and money into the 'money' table
-      const [rows] = await connection.execute('insert into money (user,balance,expiry) values(?,'-${parseInt(amount)}',?', [userId,expiryDate]);
+      const [rows] = await connection.execute('insert into money (user,balance,expiry) values(?,?,?)', [userId,-parseInt(amount),expiryDate]);
 
       await connection.end();
 
