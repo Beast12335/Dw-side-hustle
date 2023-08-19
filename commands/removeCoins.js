@@ -18,7 +18,7 @@ module.exports = {
       return interaction.followUp({ content: 'You do not have permission to use this command.', ephemeral: true });
     }
 
-    const userId = interaction.options.getUser('user');
+    const userId = interaction.options.getUser('user').id;
     const amount = interaction.options.getString('coins');
 
     if (!amount.match(/^\d+$/)) {
@@ -33,7 +33,7 @@ module.exports = {
 
 
       // Insert the user and money into the 'money' table
-      const [rows] = await connection.execute('insert into money (user,balance,expiry) values(?,`-${parseInt(amount)}`,?', [userId,expiryDate]);
+      const [rows] = await connection.execute('insert into money (user,balance,expiry) values(?,'-${parseInt(amount)}',?', [userId,expiryDate]);
 
       await connection.end();
 
