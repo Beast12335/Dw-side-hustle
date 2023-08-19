@@ -32,7 +32,7 @@ module.exports = {
             return;
             }
       
-          const [updateResult] = await connection.execute('insert into money values(`000`,?,`-${coinsToAdd}`,?)', [selectedUser, expiryDate]);
+          const [updateResult] = await connection.execute('insert into money values('000',?,'-${coinsToAdd}',?)', [selectedUser, expiryDate]);
       
           if (updateResult.affectedRows === 1) {
             await interaction.followUp(`Successfully removed ${coinsToAdd} coins from ${selectedUser}'s balance.`);
