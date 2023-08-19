@@ -30,7 +30,7 @@ module.exports = {
       }
 
       const balance = rows[0].total;
-      await interaction.followUp({ content: `Money balance for the <@${userId}>: ${balance} coins`, ephemeral: false });
+      await interaction.followUp({ content: `Money balance for <@${userId}>: ${balance} coins`, ephemeral: false });
     } catch (error) {
       console.error(error);
       await interaction.followUp({ content: 'An error occurred while checking the balance.', ephemeral: true });
