@@ -22,8 +22,9 @@ module.exports = {
         await interaction.channel.permissionOverwrites.create(userToAdd, { ViewChannel: true });
 
         // Send a success message
-        await interaction.channel.send(`User with ID ${userIdToAdd} has been added to the channel.`);
         collector.stop()
+        await interaction.channel.send(`User with ID ${userIdToAdd} has been added to the channel.`);
+        //collector.stop()
       });
 
       collector.on('end', collected => {
