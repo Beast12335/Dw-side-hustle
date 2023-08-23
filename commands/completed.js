@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField } = require('discord.js');
+const { PermissionsBitField,ChannelType } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -28,7 +28,7 @@ module.exports = {
       const channel = interaction.channel;
       
       // Find the category in the guild by name
-      const categoryObj = interaction.guild.channels.cache.find(ch => ch.type === 'GUILD_CATEGORY' && ch.id === category);
+      const categoryObj = interaction.guild.channels.cache.find(ch => ch.type === ChannelType.GuildCategory && ch.id === category);
       
       if (!categoryObj) {
         return await interaction.followUp({ content: `Category "${category}" not found.`, ephemeral: true });
