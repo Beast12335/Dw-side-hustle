@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const paypalLinks = {
   Tanki: 'https://www.paypal.me/tanki667',
-  Prithvi: 'https://www.paypal.me/prithvirajghorpade',
+  Beast: 'https://www.paypal.me/ParamjeetAhlawat',
   Icy: 'https://www.paypal.me/icyalfred',
   Sanchit: 'https://www.paypal.me/Rinkiinterprices',
 };
@@ -31,7 +31,7 @@ module.exports = {
         .setDescription('Choose the user for payment.')
         .setRequired(true)
         .addChoices({name:'Tanki', value:'Tanki'},
-                    {name:'Prithvi', value:'Prithvi'},
+                    {name:'Beast', value:'Beast'},
                     {name:'Icy', value:'Icy'},
                     {name:'Sanchit', value:'Sanchit'})
     ),
