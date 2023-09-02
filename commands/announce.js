@@ -22,7 +22,7 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    await interaction.deferReply()
+    await interaction.deferReply({ephemeral:true})
     try {
       //await interaction.deferReply()
       // Check if the user has admin permissions
@@ -38,11 +38,12 @@ module.exports = {
         const embed = new EmbedBuilder()
           .setDescription(messageContent)
           .setColor('#0099ff');
-
-        await interaction.followUp({ embeds: [embed] });
+        await interaction.followUp({content:'Message sent', ephemeral:true});
+        await interaction.channel.send({ embeds: [embed] });
       } else {
         // Send the message as simple text
-        await interaction.followUp(messageContent);
+        await interaction.channel.send(messageContent);
+        await interaction.followUp({content:`Message sent`, ephemeral:true});
       }
 
     } catch (error) {
