@@ -5,9 +5,8 @@ const CODE_EXPIRY_MONTHS = 2;
 async function checkVouchersValidity() {
   try {
     // Connect to the MySQL server
-    const connection = await mysql.createConnection({
-      process.env.DB_URL
-    });
+    const connection = await mysql.createConnection(
+      process.env.DB_URL);
 
     console.log('Connected to MySQL server.');
 
