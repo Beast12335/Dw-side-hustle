@@ -8,7 +8,7 @@ module.exports = {
 
     try {
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has('PermissionsBitField.Flags.ADMINISTRATOR')) {
+      if (!interaction.member.permissions.has('PermissionsBitField.Flags.Admimistrator')) {
         return await interaction.reply({ content: 'You do not have permission to delete this ticket.', ephemeral: true });
       }
 
