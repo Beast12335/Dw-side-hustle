@@ -111,6 +111,7 @@ module.exports = {
       }
 
       const attachment = new AttachmentBuilder(canvas.toBuffer(), 'bill.png');
+      console.log(customerName);
 
       const replyEmbed = {
         files: [attachment]
