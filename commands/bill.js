@@ -72,7 +72,7 @@ module.exports = {
       const currencySymbol = currencySymbols[currency];
 
       // Get the customer's name or nickname
-      const customerName = customer.displayName.length < 6
+      const customerName = customer.displayName.length <= 6
         ? customer.displayName
         : customer.displayName.length > 6 && customer.displayName.length < 15
         ? customer.displayName
