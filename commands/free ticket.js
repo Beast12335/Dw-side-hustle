@@ -29,7 +29,7 @@ module.exports = {
         .setColor('#ff0000')
         .setThumbnail('https://cdn.discordapp.com/icons/808758266792247297/3c7a14d0f10d9bd3be4921bf0e6be5ca.png')
         .setFooter({text:'Design Wonderland',iconURL:'https://cdn.discordapp.com/icons/808758266792247297/3c7a14d0f10d9bd3be4921bf0e6be5ca.png'})
-        .setImage('https://media.discordapp.net/attachments/1012392305606541423/1080439449026035853/DW_COINS1-1.png')
+        .setImage('https://media.discordapp.net/attachments/916149747180511294/1179648739099562034/DW_COINS1.png?ex=658d0180&is=657a8c80&hm=d5fb44ad4fd75450bef1bb957e3ed087c53d3ac2a4c0579eb411b9353c91a0f9&')
         
 
       // Create a select menu with options from the types array
