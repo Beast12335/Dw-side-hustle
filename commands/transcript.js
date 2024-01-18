@@ -1,36 +1,43 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const transcript = require ('discord-html-transcripts')
+const transcript = require('discord-html-transcripts');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('transcript')
-    .setDescription('manual work.'),
+    .setDescription('Manual work.'),
 
   async execute(interaction) {
-    await interaction.deferReply()
+    await interaction.deferReply();
+
     try {
       if (!interaction.member.permissions.has('ADMINISTRATOR')) {
         return await interaction.reply({ content: 'You do not have permission to confirm deleting this ticket.', ephemeral: true });
       }
-      
-      // Generate and send the transcript
-      const t = await transcript.createTranscript(interaction.channel,{
+
+      // Generate and save the transcript
+      const t = await transcript.createTranscript(interaction.channel, {
         filename: `${interaction.channel.name}.html`,
-        saveImages:true,
-        poweredBy:false
+        saveImages: true,
+        poweredBy: false,
       });
-      
-      // Send a confirmation message for deleting the ticket
-      const transcriptChannelId = '914051184820633620'; // Replace with the desired channel ID to send the transcript
-      const transcriptChannel = interaction.guild.channels.cache.get(transcriptChannelId);
-      if (transcriptChannel) {
-        await transcriptChannel.send({files:[t]});
+
+      // Split the transcript into chunks (adjust the chunk size as needed)
+      const chunkSize = 200; // Discord message size limit
+      const chunks = splitIntoChunks(t, chunkSize);
+
+      // Send each chunk as a separate message
+      for (const chunk of chunks) {
+        await interaction.followUp({ files: [chunk] });
       }
-      //await interaction.deferReply()
-      await interaction.followUp(`transcript sent.`);
+      
     } catch (error) {
-      console.error('Error replying with pong:', error);
-      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
+      console.error('Error replying with transcript:', error);
+      await interaction.followUp({ content: 'An error occurred while executing this command.', ephemeral: true });
     }
   },
 };
+
+function splitIntoChunks(text, chunkSize) {
+  const regex = new RegExp(`.{1,${chunkSize}}`, 'g');
+  return text.match(regex);
+}
