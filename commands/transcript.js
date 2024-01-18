@@ -4,7 +4,14 @@ const transcript = require('discord-html-transcripts');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('transcript')
-    .setDescription('Manual work.'),
+    .setDescription('Manual work.')
+    .addStringOption(option =>
+      option.setName('files')
+        .setDescription('Include images in the transcript')
+        .addChoice('Yes', 'yes')
+        .addChoice('No', 'no')
+        .setRequired(true)
+    ),
 
   async execute(interaction) {
     await interaction.deferReply();
@@ -14,30 +21,21 @@ module.exports = {
         return await interaction.reply({ content: 'You do not have permission to confirm deleting this ticket.', ephemeral: true });
       }
 
-      // Generate and save the transcript
+      // Determine whether to include images in the transcript
+      const includeImages = interaction.options.getString('files') === 'yes';
+
+      // Generate the transcript based on the option
       const t = await transcript.createTranscript(interaction.channel, {
         filename: `${interaction.channel.name}.html`,
-        saveImages: true,
+        saveImages: includeImages,
         poweredBy: false,
       });
 
-      // Split the transcript into chunks (adjust the chunk size as needed)
-      const chunkSize = 200; // Discord message size limit
-      const chunks = splitIntoChunks(t, chunkSize);
-
-      // Send each chunk as a separate message
-      for (const chunk of chunks) {
-        await interaction.followUp({ files: [chunk] });
-      }
-      
+      // Send a confirmation message with the link to the transcript
+      await interaction.followUp(`Transcript sent.`);
     } catch (error) {
       console.error('Error replying with transcript:', error);
       await interaction.followUp({ content: 'An error occurred while executing this command.', ephemeral: true });
     }
   },
 };
-
-function splitIntoChunks(text, chunkSize) {
-  const regex = new RegExp(`.{1,${chunkSize}}`, 'g');
-  return text.match(regex);
-}
