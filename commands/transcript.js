@@ -8,8 +8,7 @@ module.exports = {
     .addStringOption(option =>
       option.setName('files')
         .setDescription('Include images in the transcript')
-        .addChoice('Yes', 'yes')
-        .addChoice('No', 'no')
+        .addChoices({name:'Yes',value:'yes'},{name:'No',value:'no'})
         .setRequired(true)
     ),
 
