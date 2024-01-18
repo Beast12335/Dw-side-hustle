@@ -30,6 +30,11 @@ module.exports = {
         poweredBy: false,
       });
 
+      const transcriptChannelId = '914051184820633620'; // Replace with the desired channel ID to send the transcript
+      const transcriptChannel = interaction.guild.channels.cache.get(transcriptChannelId);
+      if (transcriptChannel) {
+        await transcriptChannel.send({files:[t]});
+      }
       // Send a confirmation message with the link to the transcript
       await interaction.followUp(`Transcript sent.`);
     } catch (error) {
