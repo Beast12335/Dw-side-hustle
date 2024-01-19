@@ -20,8 +20,8 @@ module.exports = {
       });
 
       // Send a confirmation message for deleting the ticket
-      const transcriptChannelId = '914051184820633620'; // Replace with the desired channel ID to send the transcript
-      const transcriptChannel = interaction.guild.channels.cache.get(transcriptChannelId);
+      let transcriptChannelId = '914051184820633620'; // Replace with the desired channel ID to send the transcript
+      let transcriptChannel = interaction.guild.channels.cache.get(transcriptChannelId);
       if (transcriptChannel) {
         await transcriptChannel.send({files:[t]});
       }
@@ -40,12 +40,12 @@ module.exports = {
       });
 
       // Send a confirmation message for deleting the ticket
-      const transcriptChannelId = '914051184820633620'; // Replace with the desired channel ID to send the transcript
-      const transcriptChannel = interaction.guild.channels.cache.get(transcriptChannelId);
-      if (transcriptChannel) {
-        await transcriptChannel.send({files:[t]});
+          let transcriptChannelId = '914051184820633620'; // Replace with the desired channel ID to send the transcript
+          let transcriptChannel = interaction.guild.channels.cache.get(transcriptChannelId);
+          if (transcriptChannel) {
+            await transcriptChannel.send({files:[x]});
       }
-      await interaction.channel.delete();
+          await interaction.channel.delete();
       }
     }
   },
