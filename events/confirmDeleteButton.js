@@ -32,6 +32,21 @@ module.exports = {
 
     } catch (error) {
       console.error('Error handling confirm delete button interaction:', error);
+      if(error.code == 40005){
+          let x = await transcript.createTranscript(interaction.channel,{
+        filename: `${interaction.channel.name}.html`,
+        saveImages:false,
+        poweredBy:false
+      });
+
+      // Send a confirmation message for deleting the ticket
+      const transcriptChannelId = '914051184820633620'; // Replace with the desired channel ID to send the transcript
+      const transcriptChannel = interaction.guild.channels.cache.get(transcriptChannelId);
+      if (transcriptChannel) {
+        await transcriptChannel.send({files:[t]});
+      }
+      await interaction.channel.delete();
+      }
     }
   },
 };
