@@ -40,7 +40,7 @@ module.exports = {
       };
 
       rows.forEach((voucher) => {
-        console.log(voucher);
+        //console.log(voucher);
         categories[voucher.valid].push(voucher);
       });
 
