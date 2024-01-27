@@ -68,7 +68,7 @@ function createVouchersEmbed(title, vouchers) {
 
   const embed = {
     title,
-    color: '#0099ff',
+    color: 39423,
     fields: embedFields,
   };
 
