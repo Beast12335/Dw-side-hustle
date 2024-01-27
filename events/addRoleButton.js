@@ -6,12 +6,14 @@ module.exports = {
     if (!interaction.isButton()) return;
     if (interaction.customId !== 'add_roles') return;
 
+    await interaction.deferReply();
+
     try {
       // Your code to add roles to the channel goes here
       // You can use MessageCollector to wait for user input for 10 seconds
 
       // Example:
-      await interaction.reply({ content: 'Please provide the role ID you want to add to the channel.', ephemeral: false });
+      await interaction.followUp({ content: 'Please provide the role ID you want to add to the channel.', ephemeral: false });
       const collector = interaction.channel.createMessageCollector({ time: 10000 }); // Collect messages for 10 seconds
       collector.on('collect', async (message) => {
         // Add the role with the provided ID to the channel
@@ -31,6 +33,7 @@ module.exports = {
       });
 
     } catch (error) {
+      await interaction.followUp(error);
       console.error('Error handling add roles button interaction:', error);
     }
   },
