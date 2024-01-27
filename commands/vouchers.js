@@ -13,7 +13,7 @@ module.exports = {
     await interaction.deferReply()
     try {
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has(PermissionsBitField.FLAGS.Administrator)) {
+      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
