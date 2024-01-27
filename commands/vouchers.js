@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField, EmbedBuilder } = require('discord.js');
+const { Permissions } = require('discord.js');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
@@ -12,57 +12,64 @@ module.exports = {
   async execute(interaction) {
     await interaction.deferReply()
     try {
-      //await interaction.deferReply()
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
+      if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
       // Connect to the MySQL server
-      const connection = await mysql.createConnection(
-        process.env.DB_URL
-      );
+      const connection = await mysql.createConnection(process.env.DB_URL);
 
       console.log('Connected to MySQL server.');
 
       // Get all vouchers from the table
       const [rows] = await connection.execute('SELECT * FROM voucher');
 
+      // Close the MySQL connection early if no vouchers are found
+      if (rows.length === 0) {
+        await connection.end();
+        console.log('MySQL connection closed.');
+        return await interaction.followUp({ content: 'No vouchers found.', ephemeral: true });
+      }
+
       // Separate vouchers into active, used, and expired categories
-      const activeVouchers = rows.filter((voucher) => voucher.valid === 'active');
-      const usedVouchers = rows.filter((voucher) => voucher.valid === 'used');
-      const expiredVouchers = rows.filter((voucher) => voucher.valid === 'expired');
+      const categories = {
+        active: [],
+        used: [],
+        expired: [],
+      };
+
+      rows.forEach((voucher) => {
+        categories[voucher.valid].push(voucher);
+      });
 
       // Create and send embeds for each category
-      const activeEmbed = createVouchersEmbed('Active Vouchers', activeVouchers);
-      const usedEmbed = createVouchersEmbed('Used Vouchers', usedVouchers);
-      const expiredEmbed = createVouchersEmbed('Expired Vouchers', expiredVouchers);
-
-      await interaction.followUp({ embeds: [activeEmbed, usedEmbed, expiredEmbed] });
+      for (const [category, vouchers] of Object.entries(categories)) {
+        const embed = createVouchersEmbed(`${category.charAt(0).toUpperCase() + category.slice(1)} Vouchers`, vouchers);
+        await interaction.followUp({ embeds: [embed] });
+      }
 
       // Close the MySQL connection
       await connection.end();
       console.log('MySQL connection closed.');
-
     } catch (error) {
       console.error('Error executing /vouchers command:', error);
-      await interaction.followUp('An error occurred while executing this command.\n',error);
+      await interaction.followUp({ content: 'An error occurred while executing this command.', ephemeral: true });
     }
   },
 };
 
 function createVouchersEmbed(title, vouchers) {
-  const embed = new EmbedBuilder()
-    .setTitle(title)
-    .setColor('#0099ff');
+  const embedFields = vouchers.map((voucher) => ({
+    name: `Voucher ID: ${voucher.code}`,
+    value: `Status: ${voucher.valid}\nExpiry Date: ${voucher.date}`,
+  }));
 
-  if (vouchers.length === 0) {
-    embed.setDescription('No vouchers found.');
-  } else {
-    for (const voucher of vouchers) {
-      embed.addFields({name:`Voucher ID`,value:`: ${voucher.code}`}, {name:`Status`, value:`: ${voucher.valid}`},{name:`Expiry Date`, value:`: ${voucher.date}`});
-    }
-  }
+  const embed = {
+    title,
+    color: '#0099ff',
+    fields: embedFields,
+  };
 
   return embed;
 }
