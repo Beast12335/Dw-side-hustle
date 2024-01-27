@@ -5,13 +5,13 @@ module.exports = {
   async execute(interaction) {
     if (!interaction.isButton()) return;
     if (interaction.customId !== 'remove_roles') return;
-
+    await interaction.deferReply()
     try {
       // Your code to remove roles from the channel goes here
       // You can use MessageCollector to wait for user input for 10 seconds
 
       // Example:
-      await interaction.reply({ content: 'Please provide the role ID you want to remove from the channel.', ephemeral: false });
+      await interaction.followUp({ content: 'Please provide the role ID you want to remove from the channel.', ephemeral: false });
       const collector = interaction.channel.createMessageCollector({ time: 10000 }); // Collect messages for 10 seconds
       collector.on('collect', async (message) => {
         // Remove the role with the provided ID from the channel
@@ -32,6 +32,7 @@ module.exports = {
 
     } catch (error) {
       console.error('Error handling remove roles button interaction:', error);
+      await interaction.followUp(error);
     }
   },
 };
