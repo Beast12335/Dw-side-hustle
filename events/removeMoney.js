@@ -13,7 +13,7 @@ module.exports = {
       // Get the selected value from the select menu
       const selectedUser = interaction.values[0];
       if (!interaction.member.permissions.has('ADMINISTRATOR')) {
-            interaction.followUp({ content: 'You do not have permission to interact with this select menu.', ephemeral: true });
+            await interaction.followUp({ content: 'You do not have permission to interact with this select menu.', ephemeral: true });
             return;
           }
       await interaction.followUp({ content: `How much coins would you like to remove from  ${selectedUser}? Please reply within 20 seconds.`, ephemeral: false });
@@ -49,6 +49,7 @@ module.exports = {
           });
       } catch (error) {
       console.error('Error handling add money interaction:', error);
+      await interaction.followUp(error);
     }
   },
 };
