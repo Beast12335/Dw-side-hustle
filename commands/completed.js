@@ -41,7 +41,7 @@ module.exports = {
 
     } catch (error) {
       console.error('Error executing /completed command:', error);
-      await interaction.reply({ content: 'An error occurred while executing this command.', ephemeral: true });
+      await interaction.followUp({ content: 'An error occurred while executing this command.', ephemeral: true });
     }
   },
 };
