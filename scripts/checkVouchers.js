@@ -7,29 +7,24 @@ async function checkVouchersValidity() {
     // Connect to the MySQL server
     const connection = await mysql.createConnection(
       process.env.DB_URL);
-
-    console.log('Connected to MySQL server.');
-
     // Get all active vouchers
-    const [rows] = await connection.execute('SELECT * FROM voucher WHERE status = ?', ['active']);
+    const [rows] = await connection.execute('SELECT * FROM voucher WHERE valid = ?', ['active']);
 
     const currentDate = new Date();
 
     // Check each voucher for validity
     for (const voucher of rows) {
-      const expiryDate = new Date(voucher.expiry_date);
+      const expiryDate = new Date(voucher.date);
 
       if (expiryDate <= currentDate) {
         // Set the voucher as expired if its expiry date has passed
-        await connection.execute('UPDATE voucher SET status = ? WHERE id = ?', ['expired', voucher.id]);
+        await connection.execute('UPDATE voucher SET valid = ? WHERE code = ?', ['expired', voucher.code]);
         console.log(`Voucher with ID ${voucher.id} has expired.`);
       }
     }
 
     // Close the MySQL connection
     await connection.end();
-    console.log('MySQL connection closed.');
-
   } catch (error) {
     console.error('Error checking vouchers validity:', error);
   }
