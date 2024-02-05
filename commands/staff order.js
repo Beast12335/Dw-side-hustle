@@ -39,7 +39,6 @@ module.exports = {
       await queryPromise(insertQuery);
 
       await interaction.followUp(`Order for ${selectedUser.username} (${selectedUser.id}) have been added for ${currentMonthYear}.`);
-      });
     } catch (error) {
       console.error(error);
       await interaction.followUp('Error processing the command.');
