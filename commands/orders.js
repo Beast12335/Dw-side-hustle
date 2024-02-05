@@ -29,14 +29,9 @@ module.exports = {
       const selectedUser = interaction.options.getUser('user');
 
       // Fetch all entries for the respective user
-      const query = `SELECT DATE_FORMAT(date, '%M %Y') AS month_year, COUNT(*) AS entry_count FROM staff WHERE id = ${selectedUser.id} GROUP BY month_year`;
-      connection.query(query, (error, results) => {
-        if (error) {
-          console.error(error);
-          return interaction.followUp('Error fetching data from the database.');
-        }
+      const [rows]  = await connection.execute(`SELECT DATE_FORMAT(date, '%M %Y') AS month_year, COUNT(*) AS entry_count FROM staff WHERE id = ${selectedUser.id} GROUP BY month_year`);
 
-        if (results.length === 0) {
+        if (rows.length === 0) {
           return interaction.followUp('No entries found for the selected user.');
         }
 
@@ -46,20 +41,20 @@ module.exports = {
           .setColor(0x00ff00);
 
         // Format the results for display
-        results.forEach(entry => {
+        rows.forEach(entry => {
           const entryText = `${entry.entry_count} entries in ${entry.month_year}`;
           if (embed.length + entryText.length < 2048) {
             embed.addField('Monthly Entries', entryText, true);
           } else {
             // Send the current embed and start a new one
-            interaction.followUp({ embeds: [embed] });
+            await interaction.followUp({ embeds: [embed] });
             embed.spliceFields(0, embed.fields.length); // Clear existing fields
             embed.addField('Monthly Entries', entryText, true);
           }
         });
 
         // Send the final embed
-        interaction.followUp({ embeds: [embed] });
+        await interaction.followUp({ embeds: [embed] });
       });
     } catch (error) {
       console.error(error);
