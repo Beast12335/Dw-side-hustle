@@ -44,12 +44,12 @@ module.exports = {
         rows.forEach(entry => {
           const entryText = `${entry.entry_count} entries in ${entry.month_year}`;
           if (embed.length + entryText.length < 2048) {
-            embed.addField('Monthly Entries', entryText, true);
+            embed.addFields({name:'Monthly Entries',value: entryText,inline: true});
           } else {
             // Send the current embed and start a new one
             interaction.followUp({ embeds: [embed] });
             embed.spliceFields(0, embed.fields.length); // Clear existing fields
-            embed.addField('Monthly Entries', entryText, true);
+            embed.addFields({name:'Monthly Entries', value:entryText,inline:true});
           }
         });
 
