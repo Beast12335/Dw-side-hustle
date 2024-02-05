@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField } = require('discord.js');
 const mysql = require('mysql2/promise');
-const util = require('util');
 require('dotenv').config();
 
 module.exports = {
@@ -25,8 +24,6 @@ module.exports = {
       }
       
       const connection = await mysql.createConnection(process.env.DB_URL);
-      const queryPromise = util.promisify(connection.query).bind(connection);
-
       // Retrieve the selected user ID
       const selectedUser = interaction.options.getUser('user');
 
@@ -35,9 +32,8 @@ module.exports = {
       const currentMonthYear = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
 
       // Store the user ID and current month-year into the MySQL table
-      const insertQuery = `INSERT INTO staff (id, date) VALUES (${selectedUser.id}, '${currentMonthYear}')`;
-      await queryPromise(insertQuery);
-
+      const [rows] = await connection.execute(`INSERT INTO staff (id, date) VALUES (${selectedUser.id}, '${currentMonthYear}'`);
+      await connection.end();
       await interaction.followUp(`Order for ${selectedUser.username} (${selectedUser.id}) have been added for ${currentMonthYear}.`);
     } catch (error) {
       console.error(error);
