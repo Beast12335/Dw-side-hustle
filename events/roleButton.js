@@ -1,3 +1,4 @@
+const { PermissionsBitField } = require('discord.js');
 module.exports = {
   name: 'interactionCreate',
   async execute(interaction) {
@@ -7,7 +8,7 @@ module.exports = {
     try {
       // Check if the user has the role with ID 38292739
       //const roleId = '860538277710790706';
-      if (!interaction.member.permissions.has('ADMINISTRATOR')) {
+      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You do not have permission to manage roles in this ticket.', ephemeral: true });
       }
 
