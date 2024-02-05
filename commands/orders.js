@@ -51,7 +51,7 @@ module.exports = {
 
       // Format the results for display
       Object.entries(entriesPerMonth).forEach(([monthYear, entryCount]) => {
-        const entryText = `${entryCount} entries in ${monthYear}`;
+        const entryText = `${entryCount} orders in ${monthYear}`;
         if (embed.length + entryText.length < 2048) {
           embed.addFields({ name: 'Monthly Entries', value: entryText, inline: true });
         } else {
