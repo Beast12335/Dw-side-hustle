@@ -20,42 +20,53 @@ module.exports = {
 
     try {
       // Check if the user invoking the command is an admin
-      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
+      if (!interaction.member.permissions.has(PermissionsBitField.FLAGS.ADMINISTRATOR)) {
         return interaction.followUp('You do not have the necessary permissions to use this command.');
       }
-      
+
+      // Establish a database connection
       const connection = await mysql.createConnection(process.env.DB_URL);
+
       // Retrieve the selected user ID
       const selectedUser = interaction.options.getUser('user');
 
       // Fetch all entries for the respective user
-      const [rows]  = await connection.execute(`SELECT DATE_FORMAT(date, '%M %Y') AS month_year, COUNT(*) AS entry_count FROM staff WHERE id = ${selectedUser.id} GROUP BY month_year`);
+      const [rows] = await connection.execute(`SELECT id, date FROM staff WHERE id = ?`, [selectedUser.id]);
 
-        if (rows.length === 0) {
-          return interaction.followUp('No entries found for the selected user.');
+      if (rows.length === 0) {
+        return interaction.followUp('No entries found for the selected user.');
+      }
+
+      // Process the raw data to calculate entries per month
+      const entriesPerMonth = {};
+      rows.forEach(entry => {
+        const monthYear = new Date(entry.date).toLocaleString('default', { month: 'long', year: 'numeric' });
+        entriesPerMonth[monthYear] = (entriesPerMonth[monthYear] || 0) + 1;
+      });
+
+      // Create an embed to display the results
+      const embed = new EmbedBuilder()
+        .setTitle(`Total entries for ${selectedUser.username} (${selectedUser.id})`)
+        .setColor(0x00ff00);
+
+      // Format the results for display
+      Object.entries(entriesPerMonth).forEach(([monthYear, entryCount]) => {
+        const entryText = `${entryCount} entries in ${monthYear}`;
+        if (embed.length + entryText.length < 2048) {
+          embed.addFields({ name: 'Monthly Entries', value: entryText, inline: true });
+        } else {
+          // Send the current embed and start a new one
+          interaction.followUp({ embeds: [embed] });
+          embed.spliceFields(0, embed.fields.length); // Clear existing fields
+          embed.addFields({ name: 'Monthly Entries', value: entryText, inline: true });
         }
+      });
 
-        // Create an embed to display the results
-        const embed = new EmbedBuilder()
-          .setTitle(`Total entries for ${selectedUser.username} (${selectedUser.id})`)
-          .setColor(0x00ff00);
+      // Send the final embed
+      await interaction.followUp({ embeds: [embed] });
 
-        // Format the results for display
-        rows.forEach(entry => {
-          const entryText = `${entry.entry_count} entries in ${entry.month_year}`;
-          if (embed.length + entryText.length < 2048) {
-            embed.addFields({name:'Monthly Entries',value: entryText,inline: true});
-          } else {
-            // Send the current embed and start a new one
-            interaction.followUp({ embeds: [embed] });
-            embed.spliceFields(0, embed.fields.length); // Clear existing fields
-            embed.addFields({name:'Monthly Entries', value:entryText,inline:true});
-          }
-        });
-
-        // Send the final embed
-        await connection.end()
-        await interaction.followUp({ embeds: [embed] });
+      // Close the database connection
+      await connection.end();
     } catch (error) {
       console.error(error);
       await interaction.followUp('Error processing the command.');
