@@ -55,7 +55,6 @@ module.exports = {
 
         // Send the final embed
         await interaction.followUp({ embeds: [embed] });
-      });
     } catch (error) {
       console.error(error);
       await interaction.followUp('Error processing the command.');
