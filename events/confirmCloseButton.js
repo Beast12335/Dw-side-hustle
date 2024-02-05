@@ -1,5 +1,5 @@
 const transcript = require('../events/transcript.js');
-
+const { PermissionsBitField } = require('discord.js');
 module.exports = {
   name: 'interactionCreate',
   async execute(interaction) {
@@ -8,7 +8,7 @@ module.exports = {
     await interaction.deferReply();
     try {
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has('ADMINISTRATOR')) {
+      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You do not have permission to confirm closing this ticket.', ephemeral: true });
       }
 
