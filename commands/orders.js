@@ -47,7 +47,7 @@ module.exports = {
             embed.addField('Monthly Entries', entryText, true);
           } else {
             // Send the current embed and start a new one
-            await interaction.followUp({ embeds: [embed] });
+            interaction.followUp({ embeds: [embed] });
             embed.spliceFields(0, embed.fields.length); // Clear existing fields
             embed.addField('Monthly Entries', entryText, true);
           }
