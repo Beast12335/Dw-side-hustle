@@ -54,6 +54,7 @@ module.exports = {
         });
 
         // Send the final embed
+        await connection.end()
         await interaction.followUp({ embeds: [embed] });
     } catch (error) {
       console.error(error);
