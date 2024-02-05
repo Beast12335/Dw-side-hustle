@@ -32,7 +32,7 @@ module.exports = {
       const currentMonthYear = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
 
       // Store the user ID and current month-year into the MySQL table
-      const [rows] = await connection.execute(`INSERT INTO staff (id, date) VALUES (${selectedUser.id}, '${currentMonthYear}'`);
+      const [rows] = await connection.execute(`INSERT INTO staff (id, date) VALUES ('${selectedUser.id}', '${currentMonthYear}'`);
       await connection.end();
       await interaction.followUp(`Order for ${selectedUser.username} (${selectedUser.id}) have been added for ${currentMonthYear}.`);
     } catch (error) {
