@@ -8,7 +8,7 @@ module.exports = {
     await interaction.deferReply();
     try {
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has('PermissionsBitField.Flags.Administrator')) {
+      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You do not have permission to close this ticket.', ephemeral: true });
       }
 
