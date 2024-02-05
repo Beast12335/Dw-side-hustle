@@ -1,3 +1,4 @@
+const { PermissionsBitField } = require('discord.js');
 const transcript = require('discord-html-transcripts');
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
 
     try {
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has('ADMINISTRATOR')) {
+      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.reply({ content: 'You do not have permission to generate the transcript.', ephemeral: true });
       }
 
