@@ -20,7 +20,7 @@ module.exports = {
 
     try {
       // Check if the user invoking the command is an admin
-      if (!interaction.member.permissions.has(PermissionsBitField.FLAGS.ADMINISTRATOR)) {
+      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return interaction.followUp('You do not have the necessary permissions to use this command.');
       }
 
