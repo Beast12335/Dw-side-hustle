@@ -53,12 +53,12 @@ module.exports = {
       Object.entries(entriesPerMonth).forEach(([monthYear, entryCount]) => {
         const entryText = `${entryCount} orders in ${monthYear}`;
         if (embed.length + entryText.length < 2048) {
-          embed.addFields({ name: 'Monthly Entries', value: entryText, inline: true });
+          embed.addFields({ name: monthYear, value: `${entryCount} orders`, inline: true });
         } else {
           // Send the current embed and start a new one
           interaction.followUp({ embeds: [embed] });
           embed.spliceFields(0, embed.fields.length); // Clear existing fields
-          embed.addFields({ name: 'Monthly Entries', value: entryText, inline: true });
+          embed.addFields({ name: monthYear, value: `${entryCount} orders`, inline: true });
         }
       });
 
