@@ -81,7 +81,7 @@ module.exports = {
       const canvas = createCanvas(402, 752);
       const ctx = canvas.getContext('2d');
 
-      const background = await loadImage('https://media.discordapp.net/attachments/916149747180511294/983757661348704276/DW_receipt.png');
+      const background = await loadImage('https://cdn.discordapp.com/attachments/916149747180511294/983757661348704276/DW_receipt.png?ex=6602ecb7&is=65f077b7&hm=c715fd632bab116edf744e3f126363264e8936dcd50c3ca9d3329fdb89c9b620&');
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
       ctx.font = '30px Comic Sans MS';
