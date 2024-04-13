@@ -1,10 +1,9 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField, AttachmentBuilder } = require('discord.js');
-const { createCanvas, loadImage } = require('canvas');
+const { Permissions, MessageAttachment } = require('discord.js');
+const { createCanvas } = require('canvas');
 const QRCode = require('qrcode');
-const vouchers = require('../db/vouchers.js');
+const Voucher = require('../db/vouchers.js');
 require('dotenv').config();
-//const db = process.env.DB_URL;
 
 const CODE_LENGTH = 6;
 const CODE_EXPIRY_MONTHS = 2;
@@ -16,22 +15,21 @@ module.exports = {
     .setDefaultPermission(false),
 
   async execute(interaction) {
-    await interaction.deferReply()
+    await interaction.deferReply();
     try {
-     // await interaction.deferReply()
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
+      if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
+
       // Generate a random alphanumeric code
       let voucherCode = generateRandomCode(CODE_LENGTH);
 
-      // Check if the code already exists in the table
+      // Check if the code already exists in the database
       let isCodeExists = true;
       while (isCodeExists) {
-        const search = await vouchers.find({code:voucherCode});
-        const rows = search.toArray();
-        if (rows.length === 0) {
+        const existingVoucher = await Voucher.findOne({ code: voucherCode });
+        if (!existingVoucher) {
           isCodeExists = false;
         } else {
           voucherCode = generateRandomCode(CODE_LENGTH);
@@ -41,36 +39,36 @@ module.exports = {
       // Calculate the expiry date
       const expiryDate = new Date();
       expiryDate.setMonth(expiryDate.getMonth() + CODE_EXPIRY_MONTHS);
-      await vouchers.create({code:voucherCode,valid:"active",date:expiryDate});
-      // Generate QR code
-      const qrCodeCanvas = createCanvas(500, 500);
-      await QRCode.toCanvas(qrCodeCanvas, voucherCode, { width: 500 });
 
-      // Create the main canvas
+      // Save the voucher to the database
+      await Voucher.create({ code: voucherCode, valid: "active", date: expiryDate });
+
+      // Generate QR code
+      const qrCode = await QRCode.toBuffer(voucherCode, { width: 500 });
+
+      // Create the canvas
       const canvas = createCanvas(1502, 1002);
       const ctx = canvas.getContext('2d');
 
-      // Load the background image
+      // Draw background image
       const background = await loadImage('https://media.discordapp.net/attachments/916149747180511294/1079635234766725260/offer.png');
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-      // Set the font properties
+      // Draw voucher code
       ctx.font = '65px bold "Arial"';
       ctx.fillStyle = 'white';
-
-      // Write the voucher code
       ctx.fillText(voucherCode, 405, 936);
 
-      // Draw the QR code
-      ctx.drawImage(qrCodeCanvas, 130, 255, 500, 500);
-      ctx.font = "bold 50px Arial"
-      // Write the expiry date
-      ctx.fillText(`${expiryDate.toDateString().slice(4,new Date(expiryDate).toDateString().length)}`, 1150, 763);
+      // Draw QR code
+      const qrImage = new MessageAttachment(qrCode, 'qrcode.png');
+      ctx.drawImage(await loadImage(qrImage.url), 130, 255, 500, 500);
 
-      // Save the canvas as a Discord attachment
-      const attachment = new AttachmentBuilder(canvas.toBuffer(), 'voucher.png');
+      // Draw expiry date
+      ctx.font = 'bold 50px Arial';
+      ctx.fillText(`${expiryDate.toDateString().slice(4)}`, 1150, 763);
 
-      // Success message with the voucher code and QR code
+      // Convert canvas to buffer and send as attachment
+      const attachment = new MessageAttachment(canvas.toBuffer(), 'voucher.png');
       const successMessage = `Voucher generated successfully! Here's your voucher code: ${voucherCode}`;
 
       await interaction.followUp({ content: successMessage, files: [attachment] });
