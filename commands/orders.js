@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
 const { PermissionsBitField } = require('discord.js');
-const mysql = require('mysql2/promise');
+const orders = require('../../db/staffOrders.js');
 require('dotenv').config();
 
 module.exports = {
@@ -23,15 +23,12 @@ module.exports = {
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return interaction.followUp('You do not have the necessary permissions to use this command.');
       }
-
-      // Establish a database connection
-      const connection = await mysql.createConnection(process.env.DB_URL);
-
       // Retrieve the selected user ID
       const selectedUser = interaction.options.getUser('user');
 
       // Fetch all entries for the respective user
-      const [rows] = await connection.execute(`SELECT id, date FROM staff WHERE id = ?`, [selectedUser.id]);
+      const cursor = await orders.find({ id: selectedUser.id });
+      const rows = await cursor.toArray();
 
       if (rows.length === 0) {
         return interaction.followUp('No entries found for the selected user.');
@@ -61,7 +58,6 @@ module.exports = {
           embed.addFields({ name: monthYear, value: `${entryCount} orders`, inline: true });
         }
       });
-
       // Send the final embed
       await interaction.followUp({ embeds: [embed] });
 
