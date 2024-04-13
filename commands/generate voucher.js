@@ -51,7 +51,7 @@ module.exports = {
       const ctx = canvas.getContext('2d');
 
       // Draw background image
-      const background = await loadImage('https://media.discordapp.net/attachments/916149747180511294/1079635234766725260/offer.png');
+      const background = await loadImage('https://media.discordapp.net/attachments/916149747180511294/983757661348704276/DW_receipt.png?ex=6627d6b7&is=661561b7&hm=c378a6fa00478ab81170fb4397a94417545f491222b18fb487e8d82ce5bed637&');
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
       // Draw voucher code
