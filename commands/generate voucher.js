@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, AttachmentBuilder } = require('discord.js');
-const { createCanvas } = require('canvas');
+const { createCanvas,loadImage } = require('canvas');
 const QRCode = require('qrcode');
 const Voucher = require('../db/vouchers.js');
 require('dotenv').config();
