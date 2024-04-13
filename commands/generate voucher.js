@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions, MessageAttachment } = require('discord.js');
+const { PermissionsBitField, AttachmentBuilder } = require('discord.js');
 const { createCanvas } = require('canvas');
 const QRCode = require('qrcode');
 const Voucher = require('../db/vouchers.js');
@@ -18,7 +18,7 @@ module.exports = {
     await interaction.deferReply();
     try {
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
@@ -60,7 +60,7 @@ module.exports = {
       ctx.fillText(voucherCode, 405, 936);
 
       // Draw QR code
-      const qrImage = new MessageAttachment(qrCode, 'qrcode.png');
+      const qrImage = new AttachmentBuilder(qrCode, 'qrcode.png');
       ctx.drawImage(await loadImage(qrImage.url), 130, 255, 500, 500);
 
       // Draw expiry date
@@ -68,7 +68,7 @@ module.exports = {
       ctx.fillText(`${expiryDate.toDateString().slice(4)}`, 1150, 763);
 
       // Convert canvas to buffer and send as attachment
-      const attachment = new MessageAttachment(canvas.toBuffer(), 'voucher.png');
+      const attachment = new AttachmentBuilder(canvas.toBuffer(), 'voucher.png');
       const successMessage = `Voucher generated successfully! Here's your voucher code: ${voucherCode}`;
 
       await interaction.followUp({ content: successMessage, files: [attachment] });
