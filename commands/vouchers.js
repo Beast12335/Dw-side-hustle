@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions } = require('discord.js');
+const { PermissionsBitField } = require('discord.js');
 const Voucher = require('../db/vouchers.js');
 require('dotenv').config();
 
@@ -13,7 +13,7 @@ module.exports = {
     await interaction.deferReply();
     try {
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
 
