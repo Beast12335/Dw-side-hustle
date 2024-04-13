@@ -3,6 +3,7 @@ const {Client, GatewayIntentBits, Collection} = require('discord.js');
 const {REST} = require('@discordjs/rest');
 const {Routes} = require('discord-api-types/v9');
 const fs = require('fs');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const client = new Client({intents: [GatewayIntentBits.Guilds,GatewayIntentBits.GuildMembers,GatewayIntentBits.GuildMessages,GatewayIntentBits.MessageContent]});
@@ -72,6 +73,15 @@ client.once('ready', async () => {
   registerCommands();
   runCheckVouchersScript();
   });
+mongoose
+    .connect(process.env.mongo)
+    .then(() => {
+      console.log("Successfully connected to the MongoDB Database");
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log("Failed to connect to the MongoDB Database");
+    });
 // Increase the maximum listener limit for EventEmitter
 require('events').EventEmitter.defaultMaxListeners = 25; // Adjust the value as needed
 
