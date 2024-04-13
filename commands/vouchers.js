@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField } = require('discord.js');
-const mysql = require('mysql2/promise');
+const vouchers = require('../../db/vouchers.js');
 require('dotenv').config();
 
 module.exports = {
@@ -16,13 +16,7 @@ module.exports = {
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
-
-      // Connect to the MySQL server
-      const connection = await mysql.createConnection(process.env.DB_URL);
-
-      console.log('Connected to MySQL server.');
-
-      // Get all vouchers from the table
+      
       const [rows] = await connection.execute('SELECT * FROM voucher');
 
       // Close the MySQL connection early if no vouchers are found
