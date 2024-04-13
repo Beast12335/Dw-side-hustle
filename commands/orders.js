@@ -28,7 +28,12 @@ module.exports = {
 
       // Fetch all entries for the respective user
       const cursor = await orders.find({ id: selectedUser.id });
-      const rows = await cursor.toArray();
+
+      // Initialize an array to store the rows
+      const rows = [];
+      await cursor.forEach(entry => {
+        rows.push(entry);
+      });
 
       if (rows.length === 0) {
         return interaction.followUp('No entries found for the selected user.');
