@@ -31,7 +31,7 @@ module.exports = {
 
       // Store the user ID and current month-year into the MySQL table
       await orders.create({
-            id: selectedUser,
+            id: selectedUser.id,
             date: currentMonthYear,
           });
       await interaction.followUp(`Order for ${selectedUser.username} (${selectedUser.id}) have been added for ${currentMonthYear}.`);
