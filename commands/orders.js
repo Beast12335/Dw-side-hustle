@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
 const { PermissionsBitField } = require('discord.js');
-const orders = require('../../db/staffOrders.js');
+const orders = require('../db/staffOrders.js');
 require('dotenv').config();
 
 module.exports = {
