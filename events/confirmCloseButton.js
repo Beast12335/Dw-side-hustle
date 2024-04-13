@@ -5,11 +5,10 @@ module.exports = {
   async execute(interaction) {
     if (!interaction.isButton()) return;
     if (interaction.customId !== 'confirm_close') return;
-    await interaction.deferReply();
     try {
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
-        return await interaction.followUp({ content: 'You do not have permission to confirm closing this ticket.', ephemeral: true });
+        return await interaction.reply({ content: 'You do not have permission to confirm closing this ticket.', ephemeral: true });
       }
 
       // Remove the initial user who created the channel by reacting to the select menu
@@ -32,7 +31,7 @@ module.exports = {
 
     } catch (error) {
       console.error('Error handling confirm close button interaction:', error);
-      await interaction.followUp(error);
+      await interaction.reply(error);
     }
   },
 };
