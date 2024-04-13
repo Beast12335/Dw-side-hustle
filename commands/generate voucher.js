@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, AttachmentBuilder } = require('discord.js');
 const { createCanvas, loadImage } = require('canvas');
 const QRCode = require('qrcode');
-const mysql = require('mysql2/promise');
+const vouchers = require('../db/vouchers.js');
 require('dotenv').config();
 //const db = process.env.DB_URL;
 
@@ -23,19 +23,14 @@ module.exports = {
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
-
-      // Connect to the MySQL server
-      const connection = await mysql.createConnection(process.env.DB_URL);
-                                             
-      console.log('Connected to MySQL server.');
-
       // Generate a random alphanumeric code
       let voucherCode = generateRandomCode(CODE_LENGTH);
 
       // Check if the code already exists in the table
       let isCodeExists = true;
       while (isCodeExists) {
-        const [rows] = await connection.execute('SELECT * FROM voucher WHERE code = ?', [voucherCode]);
+        const search = await vouchers.find({code:voucherCode});
+        const rows = search.toArray();
         if (rows.length === 0) {
           isCodeExists = false;
         } else {
@@ -46,10 +41,7 @@ module.exports = {
       // Calculate the expiry date
       const expiryDate = new Date();
       expiryDate.setMonth(expiryDate.getMonth() + CODE_EXPIRY_MONTHS);
-
-      // Insert the voucher details into the table
-      await connection.execute('INSERT INTO voucher (code,valid, date) VALUES (?,?, ?)', [voucherCode,'active', expiryDate]);
-
+      await vouchers.create({code:voucherCode,valid:"active",date:expiryDate});
       // Generate QR code
       const qrCodeCanvas = createCanvas(500, 500);
       await QRCode.toCanvas(qrCodeCanvas, voucherCode, { width: 500 });
@@ -82,9 +74,6 @@ module.exports = {
       const successMessage = `Voucher generated successfully! Here's your voucher code: ${voucherCode}`;
 
       await interaction.followUp({ content: successMessage, files: [attachment] });
-
-      // Close the MySQL connection
-      await connection.end();
 
     } catch (error) {
       console.error('Error executing /generatevoucher command:', error);
