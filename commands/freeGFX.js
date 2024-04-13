@@ -2,7 +2,7 @@ const { SlashCommandBuilder,Guild } = require('@discordjs/builders');
 const { PermissionsBitField, EmbedBuilder, ActionRowBuilder, ButtonBuilder,ButtonStyle } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('send')
+    .setName('free')
     .setDescription('Setup free system.')
     .setDefaultPermission(false),
 
