@@ -67,8 +67,7 @@ module.exports = {
       await interaction.followUp({ embeds: [embed] });
 
       // Close the database connection
-      await connection.end();
-    } catch (error) {
+      } catch (error) {
       console.error(error);
       await interaction.followUp('Error processing the command.');
     }
