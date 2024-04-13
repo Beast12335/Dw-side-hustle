@@ -5,12 +5,10 @@ module.exports = {
   async execute(interaction) {
     if (!interaction.isButton() || interaction.customId !== 'confirm_delete') return;
 
-    await interaction.deferReply();
-
     try {
       // Check if the user has admin permissions
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
-        return await interaction.followUp({ content: 'You do not have permission to confirm deleting this ticket.', ephemeral: true });
+        return await interaction.reply({ content: 'You do not have permission to confirm deleting this ticket.', ephemeral: true });
       }
 
       const transcriptOptions = {
@@ -33,7 +31,7 @@ module.exports = {
       await interaction.channel.delete();
     } catch (error) {
       console.error('Error handling confirm delete button interaction:', error);
-      await interaction.followUp(error);
+      await interaction.reply(error);
 
       // Handle error code 40005 (Unknown Interaction)
       if (error.code === 40005) {
