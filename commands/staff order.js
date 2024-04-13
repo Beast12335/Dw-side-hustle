@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField } = require('discord.js');
-const mysql = require('mysql2/promise');
+const orders = require('../../db/staffOrders.js');
 require('dotenv').config();
 
 module.exports = {
@@ -23,8 +23,6 @@ module.exports = {
         return interaction.followUp('You do not have the necessary permissions to use this command.');
       }
       
-      const connection = await mysql.createConnection(process.env.DB_URL);
-      // Retrieve the selected user ID
       const selectedUser = interaction.options.getUser('user');
 
       // Get the current month and year
@@ -32,8 +30,10 @@ module.exports = {
       const currentMonthYear = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
 
       // Store the user ID and current month-year into the MySQL table
-      const [rows] = await connection.execute(`INSERT INTO staff VALUES ('${selectedUser.id}', '${currentMonthYear}')`);
-      await connection.end();
+      await orders.create({
+            id: selectedUser,
+            date: currentMonthYear,
+          });
       await interaction.followUp(`Order for ${selectedUser.username} (${selectedUser.id}) have been added for ${currentMonthYear}.`);
     } catch (error) {
       console.error(error);
