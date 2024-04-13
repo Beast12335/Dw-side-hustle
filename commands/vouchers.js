@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField } = require('discord.js');
-const vouchers = require('../../db/vouchers.js');
+const vouchers = require('../db/vouchers.js');
 require('dotenv').config();
 
 module.exports = {
