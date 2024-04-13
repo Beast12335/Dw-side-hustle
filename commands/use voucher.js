@@ -15,21 +15,21 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    await interaction.deferReply()
+    await interaction.deferReply();
     try {
-     // await interaction.deferReply()
       const voucherCode = interaction.options.getString('code');
+
       // Check if the voucher code exists and is active
-      const search = await vouchers.find({code:voucherCode});
-      const rows = search.toArray();
-      if (rows.length === 0) {
+      const search = await vouchers.findOne({ code: voucherCode, valid: 'active' });
+
+      if (!search) {
         // Voucher not found or not active
         return await interaction.followUp({ content: 'Invalid voucher code or the voucher has already been used/expired.', ephemeral: true });
       }
 
       // Mark the voucher as used
-      const voucherId = rows[0].code;
-      await vouchers.updateOne({code:voucherCode,valid:"used"});
+      await vouchers.updateOne({ code: voucherCode }, { $set: { valid: 'used' } });
+
       // Success message
       const successEmbed = new EmbedBuilder()
         .setTitle('Voucher Used Successfully')
