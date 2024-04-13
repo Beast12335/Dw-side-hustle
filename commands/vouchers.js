@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField } = require('discord.js');
-const vouchers = require('../db/vouchers.js');
+const { Permissions } = require('discord.js');
+const Voucher = require('../db/vouchers.js');
 require('dotenv').config();
 
 module.exports = {
@@ -10,21 +10,15 @@ module.exports = {
     .setDefaultPermission(false),
 
   async execute(interaction) {
-    await interaction.deferReply()
+    await interaction.deferReply();
     try {
       // Check if the user has admin permissions
-      if (!interaction.member.permissions.has(PermissionsBitField.Flags.ADMINISTRATOR)) {
+      if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
         return await interaction.followUp({ content: 'You need admin permissions to use this command.', ephemeral: true });
       }
-      
-      const [rows] = await connection.execute('SELECT * FROM voucher');
 
-      // Close the MySQL connection early if no vouchers are found
-      if (rows.length === 0) {
-        await connection.end();
-        console.log('MySQL connection closed.');
-        return await interaction.followUp({ content: 'No vouchers found.', ephemeral: true });
-      }
+      // Retrieve all vouchers from the database
+      const vouchers = await Voucher.find();
 
       // Separate vouchers into active, used, and expired categories
       const categories = {
@@ -33,8 +27,7 @@ module.exports = {
         expired: [],
       };
 
-      rows.forEach((voucher) => {
-        //console.log(voucher);
+      vouchers.forEach((voucher) => {
         categories[voucher.valid].push(voucher);
       });
 
@@ -43,10 +36,6 @@ module.exports = {
         const embed = createVouchersEmbed(`${category.charAt(0).toUpperCase() + category.slice(1)} Vouchers`, vouchers);
         await interaction.followUp({ embeds: [embed] });
       }
-
-      // Close the MySQL connection
-      await connection.end();
-      console.log('MySQL connection closed.');
     } catch (error) {
       console.error('Error executing /vouchers command:', error);
       await interaction.followUp({ content: 'An error occurred while executing this command.', ephemeral: true });
