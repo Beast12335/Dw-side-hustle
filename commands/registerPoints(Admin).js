@@ -4,7 +4,7 @@ const pointsModel = require('../db/points.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('create-points')
+    .setName('create-membership')
     .setDescription('Create a points account for a user.')
     .addUserOption(option =>
       option
