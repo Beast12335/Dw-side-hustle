@@ -6,8 +6,7 @@ require('dotenv').config();
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('register')
-    .setDescription('Register for the points system.')
-    ),
+    .setDescription('Register for the points system.'),
 
   async execute(interaction) {
     await interaction.deferReply();
