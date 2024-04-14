@@ -48,7 +48,7 @@ module.exports = {
 
       // Check if the user has enough points to remove
       if (userPoints.balance < amountToRemove) {
-        const errorEmbed = new MessageEmbed()
+        const errorEmbed = new EmbedBuilder()
           .setColor('#FF0000')
           .setDescription('User does not have enough points to remove.');
 
