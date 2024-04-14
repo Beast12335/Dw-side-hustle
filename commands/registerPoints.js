@@ -22,8 +22,8 @@ module.exports = {
       const selectedUser = interaction.member.user
       await points.insertOne({
           id: selectedUser.id,
-          balance: 0,
-          made_by: interaction.user.id
+          balance: 0
+          //made_by: interaction.user.id
         });
         
         await interaction.followUp(`Account for ${selectedUser.username} (${selectedUser.id}) has been created.`);
