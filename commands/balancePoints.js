@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuiler } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const pointsModel = require('../db/points.js');
 
 module.exports = {
