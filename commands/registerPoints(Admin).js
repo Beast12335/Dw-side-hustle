@@ -42,7 +42,8 @@ module.exports = {
       // Create a new points account for the user
       await pointsModel.create({
         id: selectedUser.id,
-        balance: 0
+        balance: 0,
+        made_by: interaction.user.id
       });
 
       const successEmbed = new EmbedBuilder()
