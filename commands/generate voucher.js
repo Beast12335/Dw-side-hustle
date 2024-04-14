@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, AttachmentBuilder } = require('discord.js');
-const { createCanvas,loadImage } = require('canvas');
+const { createCanvas, loadImage } = require('canvas');
 const QRCode = require('qrcode');
 const Voucher = require('../db/vouchers.js');
 require('dotenv').config();
@@ -45,7 +45,7 @@ module.exports = {
 
       // Generate QR code
       const qrCode = await QRCode.toBuffer(voucherCode, { width: 500 });
-
+      console.log('qr generated');
       // Create the canvas
       const canvas = createCanvas(1502, 1002);
       const ctx = canvas.getContext('2d');
@@ -61,7 +61,7 @@ module.exports = {
 
       // Draw QR code
       const qrImage = new AttachmentBuilder(qrCode, 'qrcode.png');
-      ctx.drawImage(await loadImage(qrImage.url), 130, 255, 500, 500);
+      ctx.drawImage(await loadImage(qrImage.attachment), 130, 255, 500, 500);
 
       // Draw expiry date
       ctx.font = 'bold 50px Arial';
