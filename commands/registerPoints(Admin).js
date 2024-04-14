@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField } = require('discord.js');
+const { PermissionsBitField,EmbedBuilder } = require('discord.js');
 const pointsModel = require('../db/points.js');
 
 module.exports = {
