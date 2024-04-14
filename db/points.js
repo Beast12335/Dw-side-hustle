@@ -7,7 +7,7 @@ const schema = new mongoose.Schema({
   },
 
   balance: {
-    type: Integer,
+    type: Number,
     required: true,
   },
 });
