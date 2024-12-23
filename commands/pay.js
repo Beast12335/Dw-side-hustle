@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const paypalLinks = {
-  Tanki: 'https://www.paypal.me/tanki667',
+  Tanki: 'https://www.paypal.me/WaiiHiinNg',
   Beast: 'https://www.paypal.me/ParamjeetAhlawat',
   Icy: 'https://www.paypal.me/icyalfred',
   Sanchit: 'https://www.paypal.me/Rinkiinterprices',
