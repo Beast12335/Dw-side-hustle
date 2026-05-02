@@ -10,7 +10,65 @@ const client = new Client({intents: [GatewayIntentBits.Guilds,GatewayIntentBits.
 client.commands = new Collection();
 
 const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
+const app = express();
+app.use(cors());
+app.use(express.json());
 
+const userMap = new Map();
+
+app.post("/api/store", (req, res) => {
+  const { subscriptionID, discordId } = req.body;
+
+  userMap.set(subscriptionID, discordId);
+
+  console.log("Stored:", subscriptionID, discordId);
+
+  res.sendStatus(200);
+});
+
+app.post("/webhook", async (req, res) => {
+  const event = req.body;
+
+  const subscriptionID = event?.resource?.id;
+
+  if (!subscriptionID) return res.sendStatus(200);
+
+  const discordId = userMap.get(subscriptionID);
+
+  if (!discordId) return res.sendStatus(200);
+
+  try {
+    const channel = await client.channels.fetch("1149237879348924476");
+
+    // ✅ SUBSCRIPTION ACTIVATED
+    if (event.event_type === "BILLING.SUBSCRIPTION.ACTIVATED") {
+      await channel.send(
+        `✅ <@${discordId}> subscribed successfully!`
+      );
+    }
+
+    // ❌ SUBSCRIPTION CANCELLED
+    if (event.event_type === "BILLING.SUBSCRIPTION.CANCELLED") {
+      await channel.send(
+        `❌ <@${discordId}> cancelled their subscription.`
+      );
+    }
+
+    // ⚠️ SUSPENDED (optional)
+    if (event.event_type === "BILLING.SUBSCRIPTION.SUSPENDED") {
+      await channel.send(
+        `⚠️ <@${discordId}> subscription got suspended.`
+      );
+    }
+
+  } catch (err) {
+    console.error(err);
+  }
+
+  res.sendStatus(200);
+});
+
+app.listen(3000, () => console.log("Payment server running"));
 //const connection = await mysql.createConnection(process.env.DB_URL)
 // Function to register commands
 const registerCommands = async () => {
