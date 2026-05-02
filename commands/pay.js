@@ -5,6 +5,7 @@ const paypalLinks = {
   Beast: 'https://www.paypal.me/ParamjeetAhlawat',
   Icy: 'https://www.paypal.me/icyalfred',
   Sanchit: 'https://www.paypal.me/Rinkiinterprices',
+  Ninja: 'https://paypal.me/GiriPrasad216?locale.x=en_GB&country.x=IN'
 };
 
 const paytmNumber = '9050661960@paytm';
@@ -32,6 +33,7 @@ module.exports = {
         .setRequired(true)
         .addChoices({name:'Tanki', value:'Tanki'},
                     {name:'Beast', value:'Beast'},
+                    {name:'Ninja', value:'Ninja'},
                     {name:'Icy', value:'Icy'},
                     {name:'Sanchit', value:'Sanchit'})
     ),
