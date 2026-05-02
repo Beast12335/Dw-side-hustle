@@ -7,7 +7,7 @@ module.exports = {
 
   async execute(interaction) {
 
-    const url = `https://your-vercel-site.vercel.app?discordId=${interaction.user.id}`;
+    const url = `https://ninja-subscription.vercel.app/?discordId=${interaction.user.id}`;
 
     const button = new ButtonBuilder()
       .setLabel("Subscribe Now")
