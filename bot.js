@@ -4,6 +4,8 @@ const {REST} = require('@discordjs/rest');
 const {Routes} = require('discord-api-types/v9');
 const fs = require('fs');
 const mongoose = require('mongoose');
+const express = require('express');
+const cors = require('cors');
 require('dotenv').config();
 
 const client = new Client({intents: [GatewayIntentBits.Guilds,GatewayIntentBits.GuildMembers,GatewayIntentBits.GuildMessages,GatewayIntentBits.MessageContent]});
